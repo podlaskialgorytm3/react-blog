@@ -5,7 +5,6 @@ export const Root = () => {
     return (
         <>
             <Menu />
-            <h1>Strona główna</h1>
             <Outlet />
         </>
     )
