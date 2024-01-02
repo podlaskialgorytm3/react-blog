@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
 import { Root } from "./pages/root/Root"
-import { SignIn } from "./pages/auth/SignIn"
-import { SignUp } from "./pages/auth/SignUp"
+import { SignIn } from "./pages/auth/sign-in"
+import { SignUp } from "./pages/auth/sign-up"
 
 
 const route = createBrowserRouter([
