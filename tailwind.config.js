@@ -10,6 +10,10 @@ export default {
       fontFamily: {
         custom: ['main', 'Quicksand'],
       },
+      colors: {
+        main: '#41c48b',
+        mainHover: "#328a63"
+      }
     },
   },
   plugins: [],
