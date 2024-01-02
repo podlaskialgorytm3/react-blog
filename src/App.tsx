@@ -6,9 +6,14 @@ import { SignUp } from "./pages/auth/SignUp"
 
 
 const route = createBrowserRouter([
-  {path: '/', element: <Root />},
-  {path: '/signin', element: <SignIn />},
-  {path: '/signup', element: <SignUp />},
+  {
+    path: '/', 
+    element: <Root />,
+    children: [
+      {path: '/signin', element: <SignIn />},
+      {path: '/signup', element: <SignUp />},
+    ]
+  }, 
 ])
 
 function App() {
