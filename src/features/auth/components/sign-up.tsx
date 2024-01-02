@@ -12,18 +12,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
-function Copyright(props: any) {
-  return (
-    <Typography margin="30px" variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <NavLink to='/' className="text-[#41c48b] font-bold">
-        michael-react-blog
-      </NavLink>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import { Copyright } from './copyright';
+
 
 const defaultTheme = createTheme();
 
