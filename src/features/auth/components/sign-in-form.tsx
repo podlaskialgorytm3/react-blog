@@ -8,13 +8,13 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 
 import { Copyright } from './copyright';
 
 import { NavLink } from 'react-router-dom';
 
-const defaultTheme = createTheme();
+import darkTheme from '../../../shared/themes/dark-theme';
 
 export default function SignInForm() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -27,7 +27,7 @@ export default function SignInForm() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={darkTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

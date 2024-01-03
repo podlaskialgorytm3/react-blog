@@ -8,14 +8,13 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
 import { Copyright } from './copyright';
 
-
-const defaultTheme = createTheme();
+import darkTheme from '../../../shared/themes/dark-theme';
 
 export default function SignUpForm() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -28,7 +27,7 @@ export default function SignUpForm() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={darkTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

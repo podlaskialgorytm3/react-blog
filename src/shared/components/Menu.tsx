@@ -10,7 +10,7 @@ const menuItemsStyles: MenuItemsStyles = {
 
 export const Menu = () => {
     return (
-        <nav className="w-full h-[100px] p-4 shadow-md flex justify-center bg-mainDark">
+        <nav className="w-full h-[100px] p-4 shadow-md flex justify-center bg-[#030712]">
             <div className="flex justify-between items-center h-full w-[90%]">
                 <NavLink to="/"><img src={Logo} className="w-16"/></NavLink>
                 <div className="w-[200px] flex justify-between">
