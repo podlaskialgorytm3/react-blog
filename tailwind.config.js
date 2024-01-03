@@ -12,7 +12,9 @@ export default {
       },
       colors: {
         main: '#41c48b',
-        mainHover: "#328a63"
+        mainHover: "#328a63",
+        mainDark: "#131f17",
+        darkText: "#fff",
       }
     },
   },
