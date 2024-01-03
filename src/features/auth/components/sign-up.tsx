@@ -164,7 +164,7 @@ export default function SignUpForm() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <NavLink to='/signin' className="text-[#41c48b] font-bold">
+                <NavLink to='/signin' className="text-main font-bold">
                   Already have an account? Sign in
                 </NavLink>
               </Grid>
