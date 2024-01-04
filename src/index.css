@@ -5,3 +5,6 @@
 *{
     font-family: Quicksand, sans-serif;
 }
+*::-webkit-scrollbar{
+    display: none;
+}

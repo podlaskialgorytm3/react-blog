@@ -6,7 +6,6 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
 import { Copyright } from './copyright';
@@ -73,7 +72,7 @@ export default function SignUpForm() {
     try{
       const user = userSchema.parse(userData);
       setFormErrors(DEFAULT_DATA);
-      setData(userData);
+      setData(userData)
     }
     catch(error: any){
       const validationError = fromZodError(error);
@@ -82,7 +81,6 @@ export default function SignUpForm() {
           ...prevState,
           [item.path[0]]: item.message,
         }));
-      
       })
     }
   };
