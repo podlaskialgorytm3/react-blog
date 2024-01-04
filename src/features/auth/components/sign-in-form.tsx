@@ -23,12 +23,14 @@ const userSchema = object({
   password: string().refine((value) => value.length > 0, "Password can't be empty")
 })
 
+const DEFAULT_DATA = {
+  email: '',
+  password: '',
+};
+
 export default function SignInForm() {
-  const [data, setData] = useState<SignInData>({ email: '', password: '' });
-  const [formErrors, setFormErrors] = useState<SignInData>({
-    email: '',
-    password: '',
-  });
+  const [data, setData] = useState<SignInData>(DEFAULT_DATA);
+  const [formErrors, setFormErrors] = useState<SignInData>(DEFAULT_DATA);
 
   const handleChange = (name: string) => {
     setFormErrors((prevState) => ({
