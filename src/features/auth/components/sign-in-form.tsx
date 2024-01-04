@@ -1,20 +1,15 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { ThemeProvider } from '@mui/material/styles';
 
 import { Copyright } from './copyright';
 
 import { NavLink } from 'react-router-dom';
-
-import darkTheme from '../../../shared/themes/dark-theme';
 
 export default function SignInForm() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -27,9 +22,7 @@ export default function SignInForm() {
   };
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
+    <>
         <Box
           sx={{
             marginTop: 8,
@@ -91,7 +84,6 @@ export default function SignInForm() {
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />
-      </Container>
-    </ThemeProvider>
+      </>
   );
 }
