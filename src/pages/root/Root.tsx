@@ -10,7 +10,7 @@ export const Root = () => {
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
             <Menu />
-            <Container component="main" maxWidth="xs">
+            <Container component="main" maxWidth="sm">
                 <Outlet />
             </Container>
         </ThemeProvider>

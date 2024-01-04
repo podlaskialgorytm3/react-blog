@@ -1,5 +1,11 @@
+import { MainDescription } from "../../features/home/main-description"
+import { MainTitle } from "../../features/home/main-title"
+
 export const Home = () => {
     return (
-       <h1>HOME</h1> 
+       <main>
+            <MainTitle />
+            <MainDescription />
+       </main>
     )
 }
