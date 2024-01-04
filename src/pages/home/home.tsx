@@ -1,23 +1,16 @@
-import { MainDescription } from "../../features/home/main-description"
-import { MainTitle } from "../../features/home/main-title"
+import { MainDescription } from "../../features/home/components/main-description"
+import { MainTitle } from "../../features/home/components/main-title"
 
-import { useSpring, animated } from 'react-spring';
+import { TextContainer } from "../../features/home/components/text-container"
 
 
 export const Home = () => {
-
-
-    const props = useSpring({
-        opacity: 1,
-        from: { opacity: 0 },
-      });
-
     return (
        <main>
-        <animated.div style={props}>
+        <TextContainer>
             <MainTitle />
             <MainDescription />
-        </animated.div>
+        </TextContainer>
        </main>
     )
 }
