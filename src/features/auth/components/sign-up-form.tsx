@@ -11,16 +11,82 @@ import { NavLink } from 'react-router-dom';
 
 import { Copyright } from './copyright';
 
+import { useState } from 'react';
+
+import { SignUpData } from '../types/sign-up';
+
+import { object, string  } from 'zod';
+import { fromZodError } from 'zod-validation-error';
+
+
+const userSchema = object({
+  email: string().email().refine((value) => value.length > 0, "Email can't be empty"),
+  password: string()
+  .min(8, 'The password must be at least 8 characters long')
+  .max(50, 'The password cannot be longer than 50 characters')
+  .refine((value) => /[a-z]/.test(value), 'The password must contain at least one lowercase letter')
+  .refine((value) => /[A-Z]/.test(value), 'The password must contain at least one uppercase letter')
+  .refine((value) => /\d/.test(value), 'The password must contain at least one digit')
+  .refine((value) => /[!@#$%^&*(),.?":{}|<>]/.test(value), 'The password must contain at least one special character'),
+  firstName: string().min(2, "First name can't be empty"),
+  lastName: string().min(2, "Last name can't be empty"),
+  phone: string().refine(value => /^\d{9}$/.test(value), {message: 'The telephone number must consist of 9 digits',}),
+  city: string().refine((value) => value.length > 0, "City can't be empty"),
+  dateOfBirth: string().refine((value) => value.length > 0, "Date of birth can't be empty")
+})
+
+const DEFAULT_DATA = {
+  email: '',
+  password: '',
+  firstName: '',
+  lastName: '',
+  phone: '',
+  city: '',
+  dateOfBirth: '',
+};
+
 
 export default function SignUpForm() {
+  const [data, setData] = useState<SignUpData>(DEFAULT_DATA);
+  const [formErrors, setFormErrors] = useState<SignUpData>(DEFAULT_DATA);
+
+
+  const handleChange = (name: string) => {
+    setFormErrors((prevState) => ({
+      ...prevState,
+      [name]: '',
+    }));
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const formData: any = new FormData(event.currentTarget);
+    let userData: SignUpData = {
+      email: formData.get('email'),
+      password: formData.get('password'),
+      firstName: formData.get('firstName'),
+      lastName: formData.get('lastName'),
+      phone: formData.get('phone'),
+      city: formData.get('city'),
+      dateOfBirth: formData.get('date'),
+    }
+    try{
+      const user = userSchema.parse(userData);
+      setFormErrors(DEFAULT_DATA);
+      setData(userData);
+    }
+    catch(error: any){
+      const validationError = fromZodError(error);
+      validationError.details.forEach((item: any) => {
+        setFormErrors((prevState) => ({
+          ...prevState,
+          [item.path[0]]: item.message,
+        }));
+      
+      })
+    }
   };
+  
 
   return (
     <>
@@ -51,6 +117,9 @@ export default function SignUpForm() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  error={formErrors.firstName ? true : false}
+                  helperText={formErrors.firstName}
+                  onChange={() => handleChange('firstName')}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -61,6 +130,9 @@ export default function SignUpForm() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  error={formErrors.lastName ? true : false}
+                  helperText={formErrors.lastName}
+                  onChange={() => handleChange('lastName')}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -71,6 +143,9 @@ export default function SignUpForm() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  error={formErrors.email ? true : false}
+                  helperText={formErrors.email}
+                  onChange={() => handleChange('email')}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -82,17 +157,9 @@ export default function SignUpForm() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="confirm-password"
-                  label="Confirm Password"
-                  type="password"
-                  id="confirm-password"
-                  autoComplete="new-password"
+                  error={formErrors.password ? true : false}
+                  helperText={formErrors.password}
+                  onChange={() => handleChange('password')}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -109,6 +176,9 @@ export default function SignUpForm() {
                       pattern: '[0-9]*',
                     },
                   }}
+                  error={formErrors.phone ? true : false}
+                  helperText={formErrors.phone}
+                  onChange={() => handleChange('phone')}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -119,6 +189,9 @@ export default function SignUpForm() {
                   label="City"
                   id="city"
                   autoComplete="city"
+                  error={formErrors.city ? true : false}
+                  helperText={formErrors.city}
+                  onChange={() => handleChange('city')}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -135,14 +208,11 @@ export default function SignUpForm() {
                       max: new Date().toISOString().split("T")[0],
                     },
                   }}
+                  error={formErrors.dateOfBirth ? true : false}
+                  helperText={formErrors.dateOfBirth}
+                  onChange={() => handleChange('dateOfBirth')}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <RadioGroup row aria-label="gender" name="gender">
-                    <FormControlLabel value="male" control={<Radio />} label="Male" />
-                    <FormControlLabel value="female" control={<Radio />} label="Female" />
-                </RadioGroup>
-            </Grid>
             </Grid>
             <Button
               type="submit"
