@@ -11,16 +11,22 @@ import { Copyright } from './copyright';
 
 import { NavLink } from 'react-router-dom';
 
+import { useState } from 'react';
+
+import { SignInData } from '../types/sing-in';
+
 export default function SignInForm() {
+  const [data,setData] = useState<SignInData>()
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const formData: any = new FormData(event.currentTarget);
+    setData({
+      email: formData.get('email'),
+      password: formData.get('password'),
+    })
   };
-
+  
   return (
     <>
         <Box
