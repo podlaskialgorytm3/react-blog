@@ -17,6 +17,10 @@ import { SignUpData } from '../types/sign-up';
 import { object, string  } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 
+import{ useMutation } from '@tanstack/react-query';
+
+import { createNewUser, queryClient } from '../utils/fetch-data';
+
 
 const userSchema = object({
   email: string().email().refine((value) => value.length > 0, "Email can't be empty"),
@@ -49,6 +53,14 @@ export default function SignUpForm() {
   const [data, setData] = useState<SignUpData>(DEFAULT_DATA);
   const [formErrors, setFormErrors] = useState<SignUpData>(DEFAULT_DATA);
 
+  const { mutate } = useMutation({
+    mutationFn: createNewUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['users']})
+      console.log('success')
+    }
+  })
+
 
   const handleChange = (name: string) => {
     setFormErrors((prevState) => ({
@@ -73,6 +85,8 @@ export default function SignUpForm() {
       const user = userSchema.parse(userData);
       setFormErrors(DEFAULT_DATA);
       setData(userData)
+      console.log(data)
+      mutate(data)
     }
     catch(error: any){
       const validationError = fromZodError(error);
@@ -86,7 +100,6 @@ export default function SignUpForm() {
     
   };
 
-  
   return (
     <>
         <Box

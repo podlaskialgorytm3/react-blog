@@ -1,10 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { QueryClientProvider } from '@tanstack/react-query';
 
 import { Root } from "./pages/root/root";
 import { SignIn } from "./pages/auth/sign-in"
 import { SignUp } from "./pages/auth/sign-up"
 import { Home } from "./pages/home/home"
 
+import { queryClient } from "./features/auth/utils/fetch-data"
 
 const route = createBrowserRouter([
   {
@@ -21,7 +23,10 @@ const route = createBrowserRouter([
 function App() {
 
   return (
-    <RouterProvider router={route}/>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={route}/>
+    </QueryClientProvider>
+    
   )
 }
 

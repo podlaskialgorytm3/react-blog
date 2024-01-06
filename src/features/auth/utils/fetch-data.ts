@@ -7,9 +7,11 @@ export const queryClient = new QueryClient();
 export const createNewUser = async (userData: SignUpData) => {
     const response = await fetch('http://localhost:3000/users',{
         method: 'POST',
+        mode: 'cors',
         body: JSON.stringify(userData),
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer your_token_here'
         }
     })
     if(!response.ok){
