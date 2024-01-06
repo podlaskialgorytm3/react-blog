@@ -50,7 +50,6 @@ const DEFAULT_DATA = {
 
 
 export default function SignUpForm() {
-  const [data, setData] = useState<SignUpData>(DEFAULT_DATA);
   const [formErrors, setFormErrors] = useState<SignUpData>(DEFAULT_DATA);
 
   const { mutate } = useMutation({
@@ -60,7 +59,6 @@ export default function SignUpForm() {
       console.log('success')
     }
   })
-
 
   const handleChange = (name: string) => {
     setFormErrors((prevState) => ({
@@ -84,9 +82,7 @@ export default function SignUpForm() {
     try{
       const user = userSchema.parse(userData);
       setFormErrors(DEFAULT_DATA);
-      setData(userData)
-      console.log(data)
-      mutate(data)
+      mutate(user)
     }
     catch(error: any){
       const validationError = fromZodError(error);
@@ -97,9 +93,8 @@ export default function SignUpForm() {
         }));
       })
     }
-    
   };
-
+  
   return (
     <>
         <Box
