@@ -83,9 +83,10 @@ export default function SignUpForm() {
         }));
       })
     }
+    
   };
-  
 
+  
   return (
     <>
         <Box
