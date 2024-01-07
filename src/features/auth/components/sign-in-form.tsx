@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 
 import { Copyright } from './copyright';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import { useState } from 'react';
 
@@ -33,12 +33,14 @@ const DEFAULT_DATA = {
 
 export default function SignInForm() {
   const [formErrors, setFormErrors] = useState<SignInData>(DEFAULT_DATA);
+  const navigate = useNavigate();
 
   const {mutate} = useMutation({
     mutationFn: fetchUsers,
     onSuccess: (data) => {
-      queryClient.invalidateQueries({queryKey: ['users']}),
-      console.log(data)
+      queryClient.invalidateQueries({queryKey: ['users']})
+      localStorage.setItem('token', data.token)
+      navigate('/')
     }
   })
 
