@@ -20,6 +20,7 @@ import { fromZodError } from 'zod-validation-error';
 
 import { useMutation } from '@tanstack/react-query';
 import { fetchUsers, queryClient } from '../utils/fetch-data';
+import { BallTriangle } from 'react-loader-spinner';
 
 const userSchema = object({
   email: string().email().refine((value) => value.length > 0, "Email can't be empty"),
@@ -35,7 +36,7 @@ export default function SignInForm() {
   const [formErrors, setFormErrors] = useState<SignInData>(DEFAULT_DATA);
   const navigate = useNavigate();
 
-  const {mutate} = useMutation({
+  const {mutate,isPending,isError,error} = useMutation({
     mutationFn: fetchUsers,
     onSuccess: (data) => {
       queryClient.invalidateQueries({queryKey: ['users']})
@@ -77,6 +78,7 @@ export default function SignInForm() {
 
   return (
     <>
+    
       <Box
         sx={{
           marginTop: 8,
@@ -85,6 +87,16 @@ export default function SignInForm() {
           alignItems: 'center',
         }}
       >
+        {isPending && <BallTriangle
+        height={100}
+        width={100}
+        radius={5}
+        color="#41c48b"
+        ariaLabel="ball-triangle-loading"
+        wrapperStyle={{marginBottom: '50px'}}
+        wrapperClass=""
+        visible={true}
+      />}
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
