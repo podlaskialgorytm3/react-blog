@@ -2,9 +2,10 @@ import  Modal  from 'react-modal';
 import  errorIMG  from '../../../assets/error.png';
 import Button from '@mui/material/Button';
 import { STYLES_BUTTON } from '../constants/data';
+import { ErrorModalData } from '../types/error-modal';
 
 
-export const ErrorModal:React.FC<{isOpen: boolean,closeModal: (event: React.MouseEvent | React.KeyboardEvent) => void,isError: boolean, error: any}> = ({isOpen,closeModal,isError,error}) => {
+export const ErrorModal:React.FC<ErrorModalData> = ({isOpen,closeModal,isError,error}) => {
         return(
                 <Modal
                 isOpen={isOpen}
