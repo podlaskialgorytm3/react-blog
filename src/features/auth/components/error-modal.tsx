@@ -5,6 +5,7 @@ export const ErrorModal:React.FC<{isOpen: boolean,closeModal: (event: React.Mous
                 <Modal
                 isOpen={isOpen}
                 onRequestClose={closeModal}
+                ariaHideApp={false}
                 className="bg-white rounded-lg w-[400px] h-[400px] absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%]"
              >
                 {isError && (

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -35,6 +35,13 @@ export default function SignUpForm() {
       console.log('success')
     }
   })
+  useEffect(() => {
+    if(isError){
+      setModalIsOpen(true);
+    }
+  },[isError])
+
+
   const handleChange = (name: string) => {
     setFormErrors((prevState) => ({
       ...prevState,
@@ -58,9 +65,6 @@ export default function SignUpForm() {
       const user = userSchema.parse(userData);
       setFormErrors(DEFAULT_DATA);
       mutate(user);
-      if(isError){
-        setModalIsOpen(true);
-      }
     }
     catch(error: any){
       const validationError = fromZodError(error);
