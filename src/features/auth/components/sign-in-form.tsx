@@ -11,7 +11,7 @@ import { Copyright } from './copyright';
 
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 import { SignInData } from '../types/sing-in';
 
@@ -21,6 +21,8 @@ import { fromZodError } from 'zod-validation-error';
 import { useMutation } from '@tanstack/react-query';
 import { fetchUsers, queryClient } from '../utils/fetch-data';
 import { BallTriangle } from 'react-loader-spinner';
+
+import {ErrorModal} from './error-modal'
 
 const userSchema = object({
   email: string().email().refine((value) => value.length > 0, "Email can't be empty"),
@@ -34,6 +36,7 @@ const DEFAULT_DATA = {
 
 export default function SignInForm() {
   const [formErrors, setFormErrors] = useState<SignInData>(DEFAULT_DATA);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const {mutate,isPending,isError,error} = useMutation({
@@ -44,6 +47,12 @@ export default function SignInForm() {
       navigate('/')
     }
   })
+
+  useEffect(() => {
+    if(isError){
+      setModalIsOpen(true);
+    }
+  },[isError])
 
   const handleChange = (name: string) => {
     setFormErrors((prevState) => ({
@@ -64,7 +73,7 @@ export default function SignInForm() {
     try {
       const user = userSchema.parse(userData);
       setFormErrors(DEFAULT_DATA);
-      mutate(user)
+      mutate(user);
     } catch (error: any) {
       const validationError = fromZodError(error);
       validationError.details.forEach((item: any) => {
@@ -76,9 +85,13 @@ export default function SignInForm() {
     }
   };
 
+  const closeModal = () => {
+    setModalIsOpen(false);
+  }
+
   return (
     <>
-    
+    <ErrorModal isOpen={modalIsOpen} closeModal={closeModal} error={error} isError={isError}/>
       <Box
         sx={{
           marginTop: 8,
