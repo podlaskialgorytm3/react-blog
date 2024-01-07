@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import Logo from "../../assets/logo.png"
 import { MenuItemsStyles } from "../types/menu"
 
@@ -9,13 +9,32 @@ const menuItemsStyles: MenuItemsStyles = {
 }
 
 export const Menu = () => {
+    const navigate = useNavigate();
+    const auth = localStorage.getItem('token')
+
+    const handleLogout = () => {
+        localStorage.removeItem('token')
+        navigate('/signin')
+    }
+
     return (
         <nav className="w-full h-[100px] p-4 shadow-md flex justify-center bg-[#030712]">
             <div className="flex justify-between items-center h-full w-[90%]">
                 <NavLink to="/"><img src={Logo} className="w-16"/></NavLink>
                 <div className="w-[200px] flex justify-between">
-                    <NavLink to="/signin" className={`${menuItemsStyles.loginItems} border-white hover:bg-[#44544b]`}>Sign In</NavLink>
-                    <NavLink to="/signup" className={`${menuItemsStyles.loginItems} ${menuItemsStyles.gradient}`}>Sign Up</NavLink>
+                    {
+                        auth ? (
+                            <>
+                                <NavLink to="/profile" className={menuItemsStyles.loginItems}>Profile</NavLink>
+                                <button className={menuItemsStyles.loginItems} onClick={handleLogout}>Logout</button>
+                            </>
+                        ) : (
+                            <>
+                                <NavLink to="/signin" className={menuItemsStyles.loginItems}>Sign In</NavLink>
+                                <NavLink to="/signup" className={`${menuItemsStyles.loginItems} ${menuItemsStyles.gradient}`}>Sign Up</NavLink>
+                            </>
+                        )
+                    }
                 </div>
             </div>
         </nav>
