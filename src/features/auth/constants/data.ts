@@ -22,3 +22,25 @@ export const STYLES_BUTTON = {
     }
 }
 export const REDIRECT_TIME = 5000;
+export const STYLES_PROGRES_BAR: any = {
+    root: {
+        width: 100,
+        height: 100,
+    },
+    path: {
+        stroke: `#41c48b`,
+        strokeLinecap: 'butt',
+        transition: 'stroke-dashoffset 0.5s ease 0s',
+    },
+    trail: {
+        stroke: '#d6d6d6',
+        strokeLinecap: 'butt',
+    },
+    text: {
+        fill: 'black',
+        fontSize: '16px',
+    },
+    background: {
+        fill: '#41c48b',
+    },
+}
