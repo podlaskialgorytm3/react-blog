@@ -43,7 +43,8 @@ export default function SignInForm() {
     mutationFn: fetchUsers,
     onSuccess: (data) => {
       queryClient.invalidateQueries({queryKey: ['users']})
-      localStorage.setItem('token', data.token)
+      localStorage.setItem('user-data', JSON.stringify(data.data))
+      localStorage.setItem('token', data.data.auth)
       navigate('/')
     }
   })
