@@ -42,8 +42,7 @@ export const fetchUsers = async (userData: SignInData) => {
     }
     else{
         const info = await response.json();
-        console.log(info.details)
-        const error: any = new Error(info.details || 'Something went wrong');
+        const error: any = new Error(info.error || 'Something went wrong');
         throw error;
     }
 }
