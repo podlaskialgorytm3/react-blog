@@ -1,4 +1,8 @@
 import { useEffect, useState } from 'react';
+import{ useMutation } from '@tanstack/react-query';
+import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -7,32 +11,34 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 
-import { NavLink } from 'react-router-dom';
-
 import { Copyright } from './copyright';
 import { ErrorModal } from './error-modal';
+import { SuccessModal } from './success-modal';
 
 import { SignUpData } from '../types/sign-up';
 
-import { userSchema } from '../utils/validate';
 import { fromZodError } from 'zod-validation-error';
-
-import{ useMutation } from '@tanstack/react-query';
-
+import { userSchema } from '../utils/validate';
 import { createNewUser, queryClient } from '../utils/fetch-data';
 
-import { DEFAULT_DATA } from '../constants/data';
+import { DEFAULT_DATA, REDIRECT_TIME } from '../constants/data';
 
 
 export default function SignUpForm() {
   const [formErrors, setFormErrors] = useState<SignUpData>(DEFAULT_DATA);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const { mutate, isError, error} = useMutation({
     mutationFn: createNewUser,
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ['users']})
-      console.log('success')
+      setIsSuccess(true)
+      setTimeout(() => {
+        navigate('/signin');
+      },REDIRECT_TIME)
     }
   })
   useEffect(() => {
@@ -84,6 +90,7 @@ export default function SignUpForm() {
   return (
     <>
         <ErrorModal isOpen={modalIsOpen} closeModal={closeModal} error={error} isError={isError}/>
+        <SuccessModal isOpen={isSuccess} />
         <Box
           sx={{
             marginTop: 8,
