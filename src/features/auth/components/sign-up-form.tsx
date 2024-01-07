@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import { NavLink } from 'react-router-dom';
 
 import { Copyright } from './copyright';
+import { ErrorModal } from './error-modal';
 
 import { SignUpData } from '../types/sign-up';
 
@@ -22,8 +23,10 @@ import { createNewUser, queryClient } from '../utils/fetch-data';
 
 import { DEFAULT_DATA } from '../constants/data';
 
+
 export default function SignUpForm() {
   const [formErrors, setFormErrors] = useState<SignUpData>(DEFAULT_DATA);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
   const { mutate, isError, error} = useMutation({
     mutationFn: createNewUser,
@@ -32,14 +35,12 @@ export default function SignUpForm() {
       console.log('success')
     }
   })
-
   const handleChange = (name: string) => {
     setFormErrors((prevState) => ({
       ...prevState,
       [name]: '',
     }));
   };
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData: any = new FormData(event.currentTarget);
@@ -57,6 +58,9 @@ export default function SignUpForm() {
       const user = userSchema.parse(userData);
       setFormErrors(DEFAULT_DATA);
       mutate(user);
+      if(isError){
+        setModalIsOpen(true);
+      }
     }
     catch(error: any){
       const validationError = fromZodError(error);
@@ -68,9 +72,14 @@ export default function SignUpForm() {
       })
     }
   };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  }
+
   return (
     <>
-    {isError && <div className="text-red-500 text-center">{error.message} </div>}
+        <ErrorModal isOpen={modalIsOpen} closeModal={closeModal} error={error} isError={isError}/>
         <Box
           sx={{
             marginTop: 8,
