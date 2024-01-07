@@ -13,12 +13,15 @@ export const createNewUser = async (userData: SignUpData) => {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer your_token_here'
         }
-    })
-    if(!response.ok){
-        const error = new Error('An error occurred while sending the data');
+    });
+
+    if (!response.ok) {
+        const info = await response.json();
+        const error: any = new Error(info.details || 'Something went wrong');
         throw error;
     }
 
     const { data } = await response.json();
+
     return data;
-}
+};

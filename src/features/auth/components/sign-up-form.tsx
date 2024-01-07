@@ -52,7 +52,7 @@ const DEFAULT_DATA = {
 export default function SignUpForm() {
   const [formErrors, setFormErrors] = useState<SignUpData>(DEFAULT_DATA);
 
-  const { mutate } = useMutation({
+  const { mutate, isError, error} = useMutation({
     mutationFn: createNewUser,
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ['users']})
@@ -70,6 +70,7 @@ export default function SignUpForm() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData: any = new FormData(event.currentTarget);
+    
     let userData: SignUpData = {
       email: formData.get('email'),
       password: formData.get('password'),
@@ -94,9 +95,9 @@ export default function SignUpForm() {
       })
     }
   };
-  
   return (
     <>
+    {isError && <div className="text-red-500 text-center">{error.message} </div>}
         <Box
           sx={{
             marginTop: 8,
