@@ -1,4 +1,7 @@
-import * as React from 'react';
+import { useState,useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -7,32 +10,17 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 
-import { Copyright } from './copyright';
-
-import { NavLink, useNavigate } from 'react-router-dom';
-
-import { useState,useEffect } from 'react';
-
 import { SignInData } from '../types/sing-in';
-
-import { object, string } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 
-import { useMutation } from '@tanstack/react-query';
-import { fetchUsers, queryClient } from '../utils/fetch-data';
+import { Copyright } from './copyright';
 import { BallTriangle } from 'react-loader-spinner';
+import { ErrorModal } from './error-modal'
 
-import {ErrorModal} from './error-modal'
+import { userSchemaLogin as userSchema } from '../utils/validate';
+import { fetchUsers, queryClient } from '../utils/fetch-data';
+import { DEFAULT_DATA_LOGIN as DEFAULT_DATA } from '../constants/data';
 
-const userSchema = object({
-  email: string().email().refine((value) => value.length > 0, "Email can't be empty"),
-  password: string().refine((value) => value.length > 0, "Password can't be empty")
-})
-
-const DEFAULT_DATA = {
-  email: '',
-  password: '',
-};
 
 export default function SignInForm() {
   const [formErrors, setFormErrors] = useState<SignInData>(DEFAULT_DATA);

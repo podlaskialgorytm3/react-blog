@@ -44,3 +44,7 @@ export const STYLES_PROGRES_BAR: any = {
         fill: '#41c48b',
     },
 }
+export const DEFAULT_DATA_LOGIN = {
+    email: '',
+    password: '',
+  };

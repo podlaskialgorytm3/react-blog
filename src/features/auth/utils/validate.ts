@@ -15,3 +15,8 @@ export const userSchema = object({
     city: string().refine((value) => value.length > 0, "City can't be empty"),
     dateOfBirth: string().refine((value) => value.length > 0, "Date of birth can't be empty")
   })
+
+  export const userSchemaLogin = object({
+    email: string().email().refine((value) => value.length > 0, "Email can't be empty"),
+    password: string().refine((value) => value.length > 0, "Password can't be empty")
+  })
