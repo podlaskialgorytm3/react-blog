@@ -18,6 +18,9 @@ import { SignInData } from '../types/sing-in';
 import { object, string } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 
+import { useMutation } from '@tanstack/react-query';
+import { fetchUsers, queryClient } from '../utils/fetch-data';
+
 const userSchema = object({
   email: string().email().refine((value) => value.length > 0, "Email can't be empty"),
   password: string().refine((value) => value.length > 0, "Password can't be empty")
@@ -29,8 +32,15 @@ const DEFAULT_DATA = {
 };
 
 export default function SignInForm() {
-  const [data, setData] = useState<SignInData>(DEFAULT_DATA);
   const [formErrors, setFormErrors] = useState<SignInData>(DEFAULT_DATA);
+
+  const {mutate} = useMutation({
+    mutationFn: fetchUsers,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({queryKey: ['users']}),
+      console.log(data)
+    }
+  })
 
   const handleChange = (name: string) => {
     setFormErrors((prevState) => ({
@@ -42,20 +52,16 @@ export default function SignInForm() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData: any = new FormData(event.currentTarget);
-    try {
-      const user = userSchema.parse({
-        email: formData.get('email'),
-        password: formData.get('password'),
-      });
-      setFormErrors({
-        email: '',
-        password: '',
-      });
 
-      setData({
-        email: formData.get('email'),
-        password: formData.get('password'),
-      });
+    let userData: SignInData = {
+      email: formData.get('email'),
+      password: formData.get('password'),
+    };
+    
+    try {
+      const user = userSchema.parse(userData);
+      setFormErrors(DEFAULT_DATA);
+      mutate(user)
     } catch (error: any) {
       const validationError = fromZodError(error);
       validationError.details.forEach((item: any) => {
@@ -64,7 +70,6 @@ export default function SignInForm() {
           [item.path[0]]: item.message,
         }));
       });
-      console.error( formErrors);
     }
   };
 
