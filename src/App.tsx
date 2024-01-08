@@ -6,6 +6,7 @@ import { Root } from "./pages/root/root";
 import { SignIn } from "./pages/auth/sign-in"
 import { SignUp } from "./pages/auth/sign-up"
 import { Home } from "./pages/home/home"
+import { ResetPassword } from "./pages/auth/reset-password";
 
 
 import { queryClient } from "./features/auth/utils/fetch-data"
@@ -18,7 +19,8 @@ const route = createBrowserRouter([
     children: [
       {path: '/', element: <Home />},
       {path: '/signin', element: <SignIn />},
-      {path: '/signup', element: <SignUp />}
+      {path: '/signup', element: <SignUp />},
+      {path: '/reset-password', element: <ResetPassword />}
     ]
   }, 
 ])

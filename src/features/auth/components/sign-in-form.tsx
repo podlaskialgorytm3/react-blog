@@ -151,7 +151,7 @@ export default function SignInForm() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <NavLink to="/forgot-password" className="text-main font-bold">
+              <NavLink to="/reset-password" className="text-main font-bold">
                 Forgot password?
               </NavLink>
             </Grid>
