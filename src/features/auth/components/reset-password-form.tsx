@@ -19,7 +19,6 @@ const userSchemaLogin = object({
   })
 
 export const ResetPasswordForm = () => {
-    const [email,setEmail] = useState<string>('');
     const [errorEmail,setErrorEmail] = useState<string>('');
 
     const navigate = useNavigate();
@@ -38,11 +37,10 @@ export const ResetPasswordForm = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setEmail(event.currentTarget.email.value)
         try{
             userSchemaLogin.parse({email: event.currentTarget.email.value})
             setErrorEmail('')
-            mutate(email)
+            mutate(event.currentTarget.email.value)
         }
         catch(error: any){
             const validationError = fromZodError(error);
