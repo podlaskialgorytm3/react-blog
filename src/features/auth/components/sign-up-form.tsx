@@ -90,7 +90,7 @@ export default function SignUpForm() {
   return (
     <>
         <ErrorModal isOpen={modalIsOpen} closeModal={closeModal} error={error} isError={isError}/>
-        <SuccessModal isOpen={isSuccess} redirect_time={REDIRECT_TIME} />
+        <SuccessModal isOpen={isSuccess} redirect_time={REDIRECT_TIME} text={"You have successfully created your account."}/>
         <Box
           sx={{
             marginTop: 8,
