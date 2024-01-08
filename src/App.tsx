@@ -21,13 +21,8 @@ const route = createBrowserRouter([
       {path: '/', element: <Home />},
       {path: '/signin', element: <SignIn />},
       {path: '/signup', element: <SignUp />},
-      {
-        path: '/reset-password',
-        element: <ResetPassword />,
-        children: [
-          {path: '/reset-password/new-password/:token', element: <NewPassword />}
-        ]
-      }
+      {path: '/reset-password',element: <ResetPassword />},
+      {path: '/new-password/:token', element: <NewPassword />}
     ]
   }, 
 ])
