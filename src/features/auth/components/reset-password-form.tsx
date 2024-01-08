@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import LockResetOutlinedIcon from '@mui/icons-material/LockResetOutlined';
 import Typography from '@mui/material/Typography';
+import { BallTriangle } from 'react-loader-spinner';
 
 import { object, string  } from 'zod';
 import { fromZodError } from 'zod-validation-error';
@@ -23,9 +24,10 @@ export const ResetPasswordForm = () => {
 
     const navigate = useNavigate();
 
-    const { mutate } = useMutation({
+    const { mutate, isPending, isError,error } = useMutation({
         mutationFn: sendMail,
         onSuccess: () => {
+            console.log("Udało się wysłac maila!")
             queryClient.invalidateQueries({queryKey: ['users']})
             navigate('/')
         }
@@ -53,6 +55,7 @@ export const ResetPasswordForm = () => {
 
     return (
     <>
+    {isError && <p>{error.message}</p>}
     <Box
         sx={{
           marginTop: 8,
@@ -61,6 +64,16 @@ export const ResetPasswordForm = () => {
           alignItems: 'center',
         }}
       >
+        {isPending && <BallTriangle
+        height={100}
+        width={100}
+        radius={5}
+        color="#41c48b"
+        ariaLabel="ball-triangle-loading"
+        wrapperStyle={{marginBottom: '50px'}}
+        wrapperClass=""
+        visible={true}
+      />}
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LockResetOutlinedIcon />
         </Avatar>
