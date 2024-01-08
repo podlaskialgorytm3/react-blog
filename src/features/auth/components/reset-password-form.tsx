@@ -1,4 +1,7 @@
 import { useState} from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import { queryClient, sendMail } from '../utils/fetch-data';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -10,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import { object, string  } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 
+
 const userSchemaLogin = object({
     email: string().email().refine((value) => value.length > 0, {message: "Email can't be empty"}),
   })
@@ -17,6 +21,16 @@ const userSchemaLogin = object({
 export const ResetPasswordForm = () => {
     const [email,setEmail] = useState<string>('');
     const [errorEmail,setErrorEmail] = useState<string>('');
+
+    const navigate = useNavigate();
+
+    const { mutate } = useMutation({
+        mutationFn: sendMail,
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['users']})
+            navigate('/')
+        }
+    })
 
     const handleChange = () => {
         setErrorEmail('')
@@ -28,6 +42,7 @@ export const ResetPasswordForm = () => {
         try{
             userSchemaLogin.parse({email: event.currentTarget.email.value})
             setErrorEmail('')
+            mutate(email)
         }
         catch(error: any){
             const validationError = fromZodError(error);
