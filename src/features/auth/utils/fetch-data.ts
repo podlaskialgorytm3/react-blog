@@ -46,3 +46,23 @@ export const fetchUsers = async (userData: SignInData) => {
         throw error;
     }
 }
+export const sendMail = async (email: string) => {
+    const response = await fetch('http://localhost:3000/send-email',{
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify({email}),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer your_token_here'
+        }
+    });
+    if(response.ok){
+        const  data  = await response.json();
+        return data;
+    }
+    else{
+        const info = await response.json();
+        const error: any = new Error(info.error || 'Something went wrong');
+        throw error;
+    }
+}
