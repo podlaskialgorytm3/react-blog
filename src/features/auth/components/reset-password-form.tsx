@@ -14,6 +14,8 @@ import { BallTriangle } from 'react-loader-spinner';
 import { object, string  } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 
+import { REDIRECT_TIME } from '../constants/data';
+import { SuccessModal } from './success-modal';
 
 const userSchemaLogin = object({
     email: string().email().refine((value) => value.length > 0, {message: "Email can't be empty"}),
@@ -21,15 +23,18 @@ const userSchemaLogin = object({
 
 export const ResetPasswordForm = () => {
     const [errorEmail,setErrorEmail] = useState<string>('');
+    const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
     const navigate = useNavigate();
 
     const { mutate, isPending, isError,error } = useMutation({
         mutationFn: sendMail,
         onSuccess: () => {
-            console.log("Udało się wysłac maila!")
             queryClient.invalidateQueries({queryKey: ['users']})
-            navigate('/')
+            setIsSuccess(true)
+            setTimeout(() => {
+                navigate('/signin');
+            },REDIRECT_TIME)
         }
     })
 
@@ -56,6 +61,7 @@ export const ResetPasswordForm = () => {
     return (
     <>
     {isError && <p>{error.message}</p>}
+    <SuccessModal isOpen={isSuccess} redirect_time={REDIRECT_TIME} text={"Check your e-mail!"}/>
     <Box
         sx={{
           marginTop: 8,
