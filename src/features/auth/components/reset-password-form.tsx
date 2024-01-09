@@ -16,6 +16,7 @@ import { fromZodError } from 'zod-validation-error';
 
 import { REDIRECT_TIME } from '../constants/data';
 import { SuccessModal } from './success-modal';
+import { ErrorModal } from './error-modal';
 
 const userSchemaLogin = object({
     email: string().email().refine((value) => value.length > 0, {message: "Email can't be empty"}),
@@ -24,6 +25,7 @@ const userSchemaLogin = object({
 export const ResetPasswordForm = () => {
     const [errorEmail,setErrorEmail] = useState<string>('');
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
+    const [ modalIsOpen, setModalIsOpen ] = useState<boolean>(false);
 
     const navigate = useNavigate();
 
@@ -55,12 +57,13 @@ export const ResetPasswordForm = () => {
         }
     }
 
-
-
-
+    const closeModal = () => {
+      setModalIsOpen(false)
+    }
+    
     return (
     <>
-    {isError && <p>{error.message}</p>}
+    <ErrorModal isOpen={modalIsOpen} closeModal={closeModal} error={error} isError={isError}/>
     <SuccessModal isOpen={isSuccess} redirect_time={REDIRECT_TIME} text={"Check your e-mail!"}/>
     <Box
         sx={{
