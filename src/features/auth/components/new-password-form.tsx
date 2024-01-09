@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { queryClient, sendPassword } from '../utils/fetch-data';
-
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -12,6 +11,9 @@ import LockResetOutlinedIcon from '@mui/icons-material/LockResetOutlined';
 import Typography from '@mui/material/Typography';
 import { object, string  } from 'zod';
 import { fromZodError } from 'zod-validation-error';
+
+import { REDIRECT_TIME } from '../constants/data';
+import { SuccessModal } from './success-modal';
 
 const passwordSchema = object({
     password: string()
@@ -25,15 +27,21 @@ const passwordSchema = object({
 
 export const NewPasswordForm = () => {
     const [errorPassword,setErrorPassword] = useState<string>('');
+    const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
     const { mutate } = useMutation({
         mutationFn: sendPassword,
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['user']});
+            setIsSuccess(true)
+            setTimeout(() => {
+                navigate('/signin');
+            },REDIRECT_TIME)
         }
     })
 
     const token = useParams<{ token: string }>();
+    const navigate = useNavigate();
 
     const handleChange = () => {
         setErrorPassword('')
@@ -58,6 +66,7 @@ export const NewPasswordForm = () => {
 
     return (
         <>
+        <SuccessModal isOpen={isSuccess} redirect_time={REDIRECT_TIME} text={"Your password is now changing ..."}/>
              <Box
                 sx={{
                     marginTop: 8,
