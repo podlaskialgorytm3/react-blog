@@ -14,6 +14,7 @@ import { fromZodError } from 'zod-validation-error';
 
 import { REDIRECT_TIME } from '../constants/data';
 import { SuccessModal } from './success-modal';
+import { ErrorModal } from './error-modal';
 
 const passwordSchema = object({
     password: string()
@@ -28,8 +29,9 @@ const passwordSchema = object({
 export const NewPasswordForm = () => {
     const [errorPassword,setErrorPassword] = useState<string>('');
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
+    const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
-    const { mutate } = useMutation({
+    const { mutate, isError, error } = useMutation({
         mutationFn: sendPassword,
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['user']});
@@ -62,10 +64,13 @@ export const NewPasswordForm = () => {
             setErrorPassword(validationError.details[0].message)
         }
     }
-
+    const closeModal = () => {
+        setModalIsOpen(false)
+    }
 
     return (
         <>
+        <ErrorModal isOpen={modalIsOpen} closeModal={closeModal} error={error} isError={isError}/>
         <SuccessModal isOpen={isSuccess} redirect_time={REDIRECT_TIME} text={"Your password is now changing ..."}/>
              <Box
                 sx={{
