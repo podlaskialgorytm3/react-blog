@@ -66,3 +66,23 @@ export const sendMail = async (email: string) => {
         throw error;
     }
 }
+export const sendPassword = async (passwordData: { password: string, auth: string }) => {
+    const response = await fetch('http://localhost:3000/send-password', {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify(passwordData),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer your_token_here'
+        }
+    });
+    if (response.ok) {
+        const data = await response.json();
+        return data;
+    } else {
+        const info = await response.json();
+        const error: any = new Error(info.error || 'Something went wrong');
+        throw error;
+    }
+}
+
