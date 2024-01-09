@@ -66,7 +66,7 @@ export const sendMail = async (email: string) => {
         throw error;
     }
 }
-export const sendPassword = async (passwordData: { password: string, auth: string }) => {
+export const sendPassword = async (passwordData: { password: string, resetToken: string | undefined | null}) => {
     const response = await fetch('http://localhost:3000/send-password', {
         method: 'POST',
         mode: 'cors',

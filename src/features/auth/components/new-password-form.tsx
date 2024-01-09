@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
+import { queryClient, sendPassword } from '../utils/fetch-data';
+
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -22,6 +26,15 @@ const passwordSchema = object({
 export const NewPasswordForm = () => {
     const [errorPassword,setErrorPassword] = useState<string>('');
 
+    const { mutate } = useMutation({
+        mutationFn: sendPassword,
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['user']});
+        }
+    })
+
+    const token = useParams<{ token: string }>();
+
     const handleChange = () => {
         setErrorPassword('')
     }
@@ -31,8 +44,10 @@ export const NewPasswordForm = () => {
         try{
             passwordSchema.parse({password: event.currentTarget.password.value})
             setErrorPassword('')
-            console.log("Password changed")
-            //mutate(event.currentTarget.email.value)
+            mutate({
+                password: event.currentTarget.password.value,
+                resetToken: token.token?.slice(7)
+            })
         }
         catch(error: any){
             const validationError = fromZodError(error);
