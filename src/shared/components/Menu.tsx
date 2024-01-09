@@ -1,6 +1,8 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import Logo from "../../assets/logo.png"
 import { MenuItemsStyles } from "../types/menu"
+import { useSelector, useDispatch } from "react-redux"
+import { authActions } from "../../store/store"
 
 
 const menuItemsStyles: MenuItemsStyles = {
@@ -10,10 +12,11 @@ const menuItemsStyles: MenuItemsStyles = {
 
 export const Menu = () => {
     const navigate = useNavigate();
-    const auth = localStorage.getItem('token')
+    const dispatch = useDispatch();
+    const auth = useSelector((state: {auth: {token: string}}) => state.auth.token)
 
     const handleLogout = () => {
-        localStorage.removeItem('token')
+        dispatch(authActions.logout())
         navigate('/signin')
     }
 

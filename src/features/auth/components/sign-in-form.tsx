@@ -21,18 +21,21 @@ import { userSchemaLogin as userSchema } from '../utils/validate';
 import { fetchUsers, queryClient } from '../utils/fetch-data';
 import { DEFAULT_DATA_LOGIN as DEFAULT_DATA } from '../constants/data';
 
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../../store/store';
 
 export default function SignInForm() {
   const [formErrors, setFormErrors] = useState<SignInData>(DEFAULT_DATA);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {mutate,isPending,isError,error} = useMutation({
     mutationFn: fetchUsers,
     onSuccess: (data) => {
       queryClient.invalidateQueries({queryKey: ['users']})
-      localStorage.setItem('user-data', JSON.stringify(data.data))
-      localStorage.setItem('token', data.data.auth)
+      dispatch(authActions.login(data.data.auth))
       navigate('/')
     }
   })

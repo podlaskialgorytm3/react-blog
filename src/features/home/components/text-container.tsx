@@ -1,14 +1,17 @@
 import { useSpring, animated } from 'react-spring';
+import { useSelector } from 'react-redux';
 
 import PropsType from "../types/props-types"
 
 export const TextContainer = ({children}: any) => {
+    const auth = useSelector((state: {auth: {token: string}}) => state.auth.token)
+
     const props = useSpring<PropsType>({
         opacity: 1,
         from: { opacity: 0 },
         config: { duration: 3000 },
       });
-    const auth = localStorage.getItem('token')
+
     return(
         <animated.div style={props}>
             {children}
