@@ -1,4 +1,4 @@
-export const MainDescription = () => {
+export const Description = () => {
     return(
         <div className="flex flex-col justify-center items-center text-lg text-[#b7bac0;]">
             <p>Gain knowledge by reading other people's posts.</p>

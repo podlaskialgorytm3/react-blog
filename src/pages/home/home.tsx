@@ -1,5 +1,5 @@
-import { MainDescription } from "../../features/home/components/main-description"
-import { MainTitle } from "../../features/home/components/main-title"
+import { Description } from "../../features/home/components/description"
+import { Title } from "../../features/home/components/title"
 
 import { TextContainer } from "../../features/home/components/text-container"
 
@@ -8,8 +8,8 @@ export const Home = () => {
     return (
        <main>
         <TextContainer>
-            <MainTitle />
-            <MainDescription />
+            <Title />
+            <Description />
         </TextContainer>
        </main>
     )
