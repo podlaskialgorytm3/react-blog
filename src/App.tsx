@@ -9,7 +9,6 @@ import { Home } from "./pages/home/home"
 import { ResetPassword } from "./pages/auth/reset-password";
 import { NewPassword } from "./pages/auth/new-password";
 
-
 import { queryClient } from "./features/auth/utils/fetch-data"
 
 const route = createBrowserRouter([
@@ -30,9 +29,9 @@ const route = createBrowserRouter([
 function App() {
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={route}/>
-    </QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+            <RouterProvider router={route}/>
+        </QueryClientProvider>
     
   )
 }

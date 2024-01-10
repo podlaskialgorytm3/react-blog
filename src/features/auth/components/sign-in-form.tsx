@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react';
+import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
@@ -24,6 +24,8 @@ import { DEFAULT_DATA_LOGIN as DEFAULT_DATA } from '../constants/data';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../../store/store';
 
+import Cookies from 'js-cookie';
+
 export default function SignInForm() {
   const [formErrors, setFormErrors] = useState<SignInData>(DEFAULT_DATA);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -36,15 +38,11 @@ export default function SignInForm() {
     onSuccess: (data) => {
       queryClient.invalidateQueries({queryKey: ['users']})
       dispatch(authActions.login(data.data.auth))
+      Cookies.set('auth',JSON.stringify(data.data), { expires: 365 });
       navigate('/')
     }
   })
 
-  useEffect(() => {
-    if(isError){
-      setModalIsOpen(true);
-    }
-  },[isError])
 
   const handleChange = (name: string) => {
     setFormErrors((prevState) => ({
@@ -80,7 +78,6 @@ export default function SignInForm() {
   const closeModal = () => {
     setModalIsOpen(false);
   }
-
   return (
     <>
     <ErrorModal isOpen={modalIsOpen} closeModal={closeModal} error={error} isError={isError}/>

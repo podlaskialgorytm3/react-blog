@@ -74,7 +74,7 @@ export const NewPasswordForm = () => {
         <SuccessModal isOpen={isSuccess} redirect_time={REDIRECT_TIME} text={"Your password is now changing ..."}/>
              <Box
                 sx={{
-                    marginTop: 8,
+                    marginTop: 8, 
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
