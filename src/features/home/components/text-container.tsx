@@ -1,16 +1,10 @@
 import { useSpring, animated } from 'react-spring';
-//import { useSelector } from 'react-redux';
-import Cookies from 'js-cookie';
+import { useAuth } from '../../../shared/hooks/useAuth';
 
 import PropsType from "../types/props-types"
 
 export const TextContainer = ({children}: any) => {
-    //const auth = useSelector((state: {auth: {token: string}}) => state.auth.token)
-    const authCookie = Cookies.get('auth');
-    let auth;
-    if (authCookie) {
-        auth = JSON.parse(authCookie).auth;
-    }
+    const  {auth}  = useAuth();
 
     const props = useSpring<PropsType>({
         opacity: 1,

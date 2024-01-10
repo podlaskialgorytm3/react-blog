@@ -1,10 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import Logo from "../../assets/logo.png"
 import { MenuItemsStyles } from "../types/menu"
-//import { useSelector, useDispatch } from "react-redux"
-import Cookies from "js-cookie"
-//import { authActions } from "../../store/store"
-
+import { useAuth } from "../hooks/useAuth";
 
 const menuItemsStyles: MenuItemsStyles = {
     loginItems: "border-[1px] border-solid rounded-[20px] text-white pt-3 pb-3 pl-5 pr-5 font-bold",
@@ -12,19 +9,11 @@ const menuItemsStyles: MenuItemsStyles = {
 }
 
 export const Menu = () => {
+    const {auth , logout} = useAuth();
     const navigate = useNavigate();
-    //const dispatch = useDispatch();
-    //const auth = useSelector((state: {auth: {token: string}}) => state.auth.token)
-    const authCookie = Cookies.get('auth');
-    let auth;
-    if (authCookie) {
-        auth = JSON.parse(authCookie).auth;
-    }
-
 
     const handleLogout = () => {
-        //dispatch(authActions.logout())
-        Cookies.remove('auth', { path: '/' });
+        logout()
         navigate('/signin')
     }
 
