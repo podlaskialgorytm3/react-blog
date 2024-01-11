@@ -21,24 +21,22 @@ import { userSchemaLogin as userSchema } from '../utils/validate';
 import { fetchUsers, queryClient } from '../utils/fetch-data';
 import { DEFAULT_DATA_LOGIN as DEFAULT_DATA } from '../constants/data';
 
-import { useDispatch } from 'react-redux';
-import { authActions } from '../../../store/store';
+import { useAuth } from '../../../shared/hooks/useAuth';
 
-import Cookies from 'js-cookie';
 
 export default function SignInForm() {
   const [formErrors, setFormErrors] = useState<SignInData>(DEFAULT_DATA);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
+  const { login } = useAuth();
+
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const {mutate,isPending,isError,error} = useMutation({
     mutationFn: fetchUsers,
     onSuccess: (data) => {
       queryClient.invalidateQueries({queryKey: ['users']})
-      dispatch(authActions.login(data.data.auth))
-      Cookies.set('auth',JSON.stringify(data.data), { expires: 365 });
+      login(data.data)
       navigate('/')
     }
   })

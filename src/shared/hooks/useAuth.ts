@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { UserData} from "../types/user-data";
 
 export const useAuth = () => {
     const authCookie: string | null | undefined = Cookies.get('auth');
@@ -7,6 +8,9 @@ export const useAuth = () => {
     const logout = () => {
         Cookies.remove('auth', { path: '/' })
     }
+    const login = (data: UserData) => {
+        Cookies.set('auth',JSON.stringify(data), { expires: 365 });
+    }
 
-    return {auth, logout};
+    return {auth, logout, login};
 }
