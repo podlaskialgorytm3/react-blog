@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -17,11 +18,14 @@ import { updateUser, queryClient } from '../utils/fetch-data';
 
 export const ProfileSettings = () => {
     const [formErrors, setFormErrors] = useState( DEFAULT_DATA );
-    const { userData  } = useAuth()
+    const { userData, update } = useAuth()
+    const navigate = useNavigate()
     const { mutate } = useMutation({
         mutationFn: updateUser,
-        onSuccess: () => {
-          queryClient.invalidateQueries({queryKey: ['users']})
+        onSuccess: (data) => {
+            queryClient.invalidateQueries({queryKey: ['users']})
+            update(data)
+            navigate('/profile')
         }
       
     })
