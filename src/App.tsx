@@ -9,6 +9,8 @@ import { Home } from "./pages/home/home"
 import { ResetPassword } from "./pages/auth/reset-password";
 import { NewPassword } from "./pages/auth/new-password";
 import { Profile } from "./pages/user/profile";
+import { Settings } from "./pages/user/settings";
+import { PostSettings } from "./pages/user/post-settings";
 
 import { queryClient } from "./features/auth/utils/fetch-data"
 
@@ -23,7 +25,9 @@ const route = createBrowserRouter([
       {path: '/signup', element: <SignUp />},
       {path: '/reset-password',element: <ResetPassword />},
       {path: '/new-password/:token', element: <NewPassword />},
-      {path: '/profile',element: <Profile />}
+      {path: '/profile',element: <Profile />},
+      {path: '/settings',element: <Settings />},
+      {path: '/post-settings',element: <PostSettings />},
     ]
   }, 
 ])

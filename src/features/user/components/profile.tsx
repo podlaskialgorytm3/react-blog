@@ -1,4 +1,4 @@
-import { useAuth } from "../../shared/hooks/useAuth"
+import { useAuth } from "../../../shared/hooks/useAuth"
 
 
 const img = "https://img.freepik.com/premium-photo/chita_827316-164.jpg"

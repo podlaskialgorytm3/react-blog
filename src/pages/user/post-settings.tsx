@@ -1,17 +1,16 @@
 import { useAuth } from "../../shared/hooks/useAuth"
 import { AuthError } from "../error/error-auth-page"
 
-import { ProfileCard } from "../../features/user/components/profile"
 import { NavigationMenu } from "../../features/user/components/navigation-menu"
 
-export const Profile = () => {
+export const PostSettings = () => {
     const { auth } = useAuth()
     return(
        <>
          {auth ? (
           <>
           <NavigationMenu />
-          <ProfileCard />
+          <h1>Ustawienie postów</h1>
           </>
          ) : (<AuthError />)}
        </>
