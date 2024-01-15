@@ -12,9 +12,19 @@ import { fromZodError } from 'zod-validation-error';
 import { DEFAULT_DATA } from '../constants/data';
 import { ResultData } from '../types/user-data';
 
+import { useMutation } from '@tanstack/react-query';
+import { updateUser, queryClient } from '../utils/fetch-data';
+
 export const ProfileSettings = () => {
     const [formErrors, setFormErrors] = useState( DEFAULT_DATA );
     const { userData  } = useAuth()
+    const { mutate } = useMutation({
+        mutationFn: updateUser,
+        onSuccess: () => {
+          queryClient.invalidateQueries({queryKey: ['users']})
+        }
+      
+    })
 
     const data = new Date(userData.date_of_birth);
     const date = `${data.getUTCFullYear()}-${String(data.getUTCMonth() + 1).padStart(2, '0')}-${String(data.getUTCDate()).padStart(2, '0')}`;
@@ -40,7 +50,7 @@ export const ProfileSettings = () => {
         try{
             let user = userSchema.parse(userFormData);
             setFormErrors(DEFAULT_DATA);
-            console.log(user)
+            mutate(user)
           }
           catch(error: any){
             const validationError = fromZodError(error);
