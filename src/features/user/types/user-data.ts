@@ -5,3 +5,6 @@ export interface  UserData {
     city: string;
     dateOfBirth: string;
 }
+export interface ResultData extends UserData{
+    id: number;
+}

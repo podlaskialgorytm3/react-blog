@@ -10,7 +10,7 @@ import { userSchema } from '../utils/validate';
 import { fromZodError } from 'zod-validation-error';
 
 import { DEFAULT_DATA } from '../constants/data';
-import { UserData } from '../types/user-data';
+import { ResultData } from '../types/user-data';
 
 export const ProfileSettings = () => {
     const [formErrors, setFormErrors] = useState( DEFAULT_DATA );
@@ -29,7 +29,8 @@ export const ProfileSettings = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const formData: any = new FormData(e.currentTarget);
-        const userFormData: UserData = {
+        const userFormData: ResultData = {
+            id: userData.user_id,
             firstName: formData.get('firstName'),
             lastName: formData.get('lastName'),
             city: formData.get('city'),
@@ -37,7 +38,7 @@ export const ProfileSettings = () => {
             dateOfBirth: formData.get('date'),
         }
         try{
-            const user = userSchema.parse(userFormData);
+            let user = userSchema.parse(userFormData);
             setFormErrors(DEFAULT_DATA);
             console.log(user)
           }
