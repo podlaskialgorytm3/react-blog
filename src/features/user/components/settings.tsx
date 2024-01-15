@@ -16,6 +16,8 @@ import { ResultData } from '../types/user-data';
 import { useMutation } from '@tanstack/react-query';
 import { updateUser, queryClient } from '../utils/fetch-data';
 
+import Swal from 'sweetalert2';
+
 export const ProfileSettings = () => {
     const [formErrors, setFormErrors] = useState( DEFAULT_DATA );
     const { userData, update } = useAuth()
@@ -25,6 +27,12 @@ export const ProfileSettings = () => {
         onSuccess: (data) => {
             queryClient.invalidateQueries({queryKey: ['users']})
             update(data)
+            Swal.fire({
+                title: 'Success!',
+                text: 'Your profile has been updated.',
+                icon: 'success',
+                confirmButtonText: 'Okay',
+              });
             navigate('/profile')
         }
       
