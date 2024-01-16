@@ -3,8 +3,10 @@ import { useAuth } from '../../../shared/hooks/useAuth';
 
 import PropsType from "../types/props-types"
 
+import { Menu } from "./menu"
+
 export const TextContainer = ({children}: any) => {
-    const  {auth}  = useAuth();
+    const  {auth, userData}  = useAuth();
 
     const props = useSpring<PropsType>({
         opacity: 1,
@@ -13,9 +15,21 @@ export const TextContainer = ({children}: any) => {
       });
 
     return(
-        <animated.div style={props}>
+        <>
+            <animated.div style={props}>
+            {auth && 
+                <div className="flex flex-col items-center justify-center w-full h-full">
+                    <h1 className="text-4xl">Witaj {userData.first_name} {userData.last_name} 👋</h1>
+                </div>
+            }
             {children}
-        {auth && <h1>Auth</h1>}
-        </animated.div>
+            </animated.div>
+            <br/>
+            {auth && 
+            <>
+                <Menu/>
+            </>
+            }
+        </>
     )
 }
