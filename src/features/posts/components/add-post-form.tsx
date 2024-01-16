@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { PostContent } from '../types/post-content';
+import { postContentSchema } from '../utils/validate';
+import { fromZodError } from 'zod-validation-error';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -9,17 +11,38 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 
+let DEFAULT_POST: PostContent = {
+    title: '',
+    content: ''
+}
+
 export const AddPostForm = () => {
     const [content, setContent] = useState<string>('');
+    const [error, setError] = useState<PostContent>(DEFAULT_POST);
     const handleContentChange = (content: string) => setContent(content);
+
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        let POST_CONTENT: PostContent = {
+        let postContent: PostContent = {
             title: e.currentTarget['post-title'].value,
             content: content
         }
-        console.log(POST_CONTENT)
+        setError(DEFAULT_POST);
+        try{
+            let PostContent = postContentSchema.parse(postContent);
+            setError(DEFAULT_POST);
+            console.log(PostContent)
+        }
+        catch(errorInfo: any){
+            const validationError = fromZodError(errorInfo);
+            validationError.details.forEach((item: any) => {
+              setError((prevState) => ({
+                ...prevState,
+                [item.path[0]]: item.message,
+              }));
+            })
+        }
     }
     
     return(
@@ -43,12 +66,15 @@ export const AddPostForm = () => {
                     variant="standard" 
                     name="post-title"
                     sx={{width: '100%'}}
+                    error={error.title ? true : false}
+                    helperText={error.title}
                 />
                 <ReactQuill
                     theme="snow" 
                     value={content}
                     onChange={handleContentChange}
                 />
+                <p className="text-red-500">{error.content}</p>
                 <Button
                 type="submit"
                 variant="contained"
