@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { PostContent } from '../types/post-content';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -12,11 +13,21 @@ export const AddPostForm = () => {
     const [content, setContent] = useState<string>('');
     const handleContentChange = (content: string) => setContent(content);
 
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        let POST_CONTENT: PostContent = {
+            title: e.currentTarget['post-title'].value,
+            content: content
+        }
+        console.log(POST_CONTENT)
+    }
+    
     return(
         <div>
             <h1 className='text-center text-4xl'>Creating post 📝✨ </h1>
             <Box
                 component="form"
+                onSubmit={handleSubmit}
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -34,7 +45,7 @@ export const AddPostForm = () => {
                     sx={{width: '100%'}}
                 />
                 <ReactQuill
-                    theme="snow" // dostępne motywy to 'snow' i 'bubble'
+                    theme="snow" 
                     value={content}
                     onChange={handleContentChange}
                 />
