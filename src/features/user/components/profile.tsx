@@ -1,3 +1,6 @@
+import { useMutation } from "@tanstack/react-query"
+
+import { updateImage } from "../utils/fetch-data"
 import { useAuth } from "../../../shared/hooks/useAuth"
 
 
@@ -8,9 +11,20 @@ const border = "border-[#41c48b] border-[3px]"
 
 export const ProfileCard = () => {
     const { userData } = useAuth()
+    const { mutate } = useMutation({
+        mutationFn: updateImage,
+        onSuccess: (data) => {
+            console.log(data)
+        }
+    })
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.files)
+        const formData = new FormData();
+        if (e.target.files) {
+            formData.append("image", e.target.files[0]);
+            mutate(formData)
+        }
+
     }
 
     return(
