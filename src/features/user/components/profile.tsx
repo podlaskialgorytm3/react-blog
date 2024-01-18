@@ -1,9 +1,7 @@
 import { useMutation } from "@tanstack/react-query"
 
-import { updateImage } from "../utils/fetch-data"
+import { updateImage } from "../api/update-image"
 import { useAuth } from "../../../shared/hooks/useAuth"
-
-
 
 const img = "https://img.freepik.com/premium-photo/chita_827316-164.jpg"
 const border = "border-[#41c48b] border-[3px]"

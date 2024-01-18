@@ -14,7 +14,7 @@ import { DEFAULT_DATA } from '../constants/data';
 import { ResultData } from '../types/user-data';
 
 import { useMutation } from '@tanstack/react-query';
-import { updateUser, queryClient } from '../utils/fetch-data';
+import { updateUser, queryClient } from '../api/update-user';
 
 import Swal from 'sweetalert2';
 
