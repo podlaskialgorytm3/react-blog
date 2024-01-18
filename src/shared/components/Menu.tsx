@@ -25,7 +25,7 @@ export const Menu = () => {
                     {
                         auth ? (
                             <>
-                                <NavLink to="/profile" className={menuItemsStyles.loginItems}>Profile</NavLink>
+                                <NavLink to="/user/profile" className={menuItemsStyles.loginItems}>Profile</NavLink>
                                 <button className={menuItemsStyles.loginItems} onClick={handleLogout}>Logout</button>
                             </>
                         ) : (
