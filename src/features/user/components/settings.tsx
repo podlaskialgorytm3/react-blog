@@ -11,7 +11,7 @@ import { userSchema } from '../utils/validate';
 import { fromZodError } from 'zod-validation-error';
 
 import { DEFAULT_DATA } from '../constants/data';
-import { ResultData } from '../types/user-data';
+import { ResultData,EnteredData } from '../types/user-data';
 
 import { useMutation } from '@tanstack/react-query';
 import { updateUser, queryClient } from '../api/update-user';
@@ -19,7 +19,7 @@ import { updateUser, queryClient } from '../api/update-user';
 import Swal from 'sweetalert2';
 
 export const ProfileSettings = () => {
-    const [formErrors, setFormErrors] = useState( DEFAULT_DATA );
+    const [formErrors, setFormErrors] = useState<EnteredData>( DEFAULT_DATA );
     const { userData, update } = useAuth()
     const navigate = useNavigate()
     const { mutate } = useMutation({
