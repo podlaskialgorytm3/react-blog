@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -13,30 +12,13 @@ import { fromZodError } from 'zod-validation-error';
 import { DEFAULT_USER_DATA } from '../constants/data';
 import { ResultData,EnteredData } from '../types/user-data';
 
-import { useMutation } from '@tanstack/react-query';
-import { updateUser, queryClient } from '../api/update-user';
-
-import Swal from 'sweetalert2';
+import { useUpdateUser } from '../api/use-update-user';
 
 export const ProfileSettings = () => {
     const [formErrors, setFormErrors] = useState<EnteredData>( DEFAULT_USER_DATA );
-    const { userData, update } = useAuth()
-    const navigate = useNavigate()
-    const { mutate } = useMutation({
-        mutationFn: updateUser,
-        onSuccess: (data) => {
-            queryClient.invalidateQueries({queryKey: ['users']})
-            update(data)
-            Swal.fire({
-                title: 'Success!',
-                text: 'Your profile has been updated.',
-                icon: 'success',
-                confirmButtonText: 'Okay',
-              });
-            navigate('/user/profile')
-        }
-      
-    })
+    const { userData } = useAuth()
+    
+    const { mutate } = useUpdateUser()
 
     const data = new Date(userData.date_of_birth);
     const date = `${data.getUTCFullYear()}-${String(data.getUTCMonth() + 1).padStart(2, '0')}-${String(data.getUTCDate()).padStart(2, '0')}`;
