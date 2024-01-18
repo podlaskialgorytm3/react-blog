@@ -1,6 +1,6 @@
-import  { UserData } from '../types/user-data';
+import  { EnteredData } from '../types/user-data';
 
-export const DEFAULT_DATA: UserData = {
+export const DEFAULT_USER_DATA: EnteredData = {
     firstName: '',
     lastName: '',
     phone: '',
