@@ -60,7 +60,7 @@ export const ProfileSettings = () => {
             dateOfBirth: formData.get('date'),
         }
         try{
-            let user = userSchema.parse(userFormData);
+            const user = userSchema.parse(userFormData);
             setFormErrors(DEFAULT_DATA);
             mutate(user)
           }
