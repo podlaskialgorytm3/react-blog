@@ -8,6 +8,8 @@ import { SignUp } from "./pages/auth/sign-up"
 import { Home } from "./pages/home/home"
 import { ResetPassword } from "./pages/auth/reset-password";
 import { NewPassword } from "./pages/auth/new-password";
+
+import { UserDashboardLayout } from "./pages/user/user-dashboard-layout.tsx";
 import { Profile } from "./pages/user/profile";
 import { Settings } from "./pages/user/settings";
 import { PostSettings } from "./pages/user/post-settings";
@@ -26,9 +28,11 @@ const route = createBrowserRouter([
       {path: '/signup', element: <SignUp />},
       {path: '/reset-password',element: <ResetPassword />},
       {path: '/new-password/:token', element: <NewPassword />},
-      {path: '/profile',element: <Profile />},
-      {path: '/settings',element: <Settings />},
-      {path: '/post-settings',element: <PostSettings />},
+      {path: '/user', element: <UserDashboardLayout />, children: [
+        {path: '/user/profile', element: <Profile/>},
+        {path: '/user/settings',element: <Settings/>},
+        {path: '/user/post-settings',element: <PostSettings/>},
+      ]},
       {path: '/add-post',element: <AddPost />},
     ]
   }, 

@@ -33,7 +33,7 @@ export const ProfileSettings = () => {
                 icon: 'success',
                 confirmButtonText: 'Okay',
               });
-            navigate('/profile')
+            navigate('/user/profile')
         }
       
     })

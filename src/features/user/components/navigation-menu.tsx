@@ -11,13 +11,13 @@ export const NavigationMenu = () => {
 
     return(
         <div className={`mb-10 w-[500px] h-[100px] flex justify-around`}>
-                <NavLink to="/post-settings" style={({isActive}) => ({backgroundColor: isActive ? '#41c48b' : ''})} className={'h-[70px] rounded-3xl'}>
+                <NavLink to="/user/post-settings" style={({isActive}) => ({backgroundColor: isActive ? '#41c48b' : ''})} className={'h-[70px] rounded-3xl'}>
                     <img src={BlogIcon} alt="Post Settings" className={imgStyle}/>
                 </NavLink>
-                <NavLink to="/profile" style={({isActive}) => ({backgroundColor: isActive ? '#41c48b' : ''})}  className={'h-[70px] rounded-3xl'}>
+                <NavLink to="/user/profile" style={({isActive}) => ({backgroundColor: isActive ? '#41c48b' : ''})}  className={'h-[70px] rounded-3xl'}>
                     <img src={AccountIcon} alt="Account Information" className={imgStyle}/>
                 </NavLink>
-                <NavLink to="/settings" style={({isActive}) => ({backgroundColor: isActive ? '#41c48b' : ''})}  className={'h-[70px] rounded-3xl'}>
+                <NavLink to="/user/settings" style={({isActive}) => ({backgroundColor: isActive ? '#41c48b' : ''})}  className={'h-[70px] rounded-3xl'}>
                     <img src={SettingsIcon} alt="Account Settings" className={imgStyle}/>
                 </NavLink>
         </div>
