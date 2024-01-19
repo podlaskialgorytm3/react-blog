@@ -7,7 +7,8 @@ import { Editor } from '@tinymce/tinymce-react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
-
+import { useMutation } from '@tanstack/react-query';
+import { createPost } from '../api/create-post';
 import { ApiKeyTinyMMC } from '../../../shared/config/config';
 
 const DEFAULT_POST: PostContent = {
@@ -22,19 +23,26 @@ export const AddPostForm = () => {
     const { userData } = useAuth();
     const handleContentChange = (e: React.FormEvent<HTMLFormElement> | any) => setContent(e.target.getContent());
 
+    const { mutate } = useMutation({
+        mutationFn: createPost,
+        onSuccess: (data) => {
+            console.log(data)
+        }
+    })
+
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let postContent: PostContent = {
-            userId: userData.id,
+            userId: userData.user_id,
             title: e.currentTarget['post-title'].value,
             content: content
         }
         setError(DEFAULT_POST);
         try{
-            let PostContent = postContentSchema.parse(postContent);
+            let PostContentSchema = postContentSchema.parse(postContent);
             setError(DEFAULT_POST);
-            console.log(PostContent)
+            mutate(PostContentSchema)
         }
         catch(errorInfo: any){
             const validationError = fromZodError(errorInfo);
