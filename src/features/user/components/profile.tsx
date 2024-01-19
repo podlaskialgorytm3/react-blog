@@ -12,7 +12,9 @@ export const ProfileCard = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
-            uploadBytes(ref(imageDatabase, `uploads/${userData.user_id}`), e.target.files[0])
+            uploadBytes(ref(imageDatabase, `uploads/${userData.user_id}`), e.target.files[0]).then(() => {
+                window.location.reload();
+            })
         }
     }    
 
