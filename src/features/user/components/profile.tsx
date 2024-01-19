@@ -5,6 +5,7 @@ import { ref,uploadBytes } from "firebase/storage"
 //import { useState } from "react"
 
 import { useQuery } from "@tanstack/react-query"
+import { useNavigate } from "react-router-dom"
 import { fetchImage } from "../api/fetch-image";
 
 import { Loading } from "../../../shared/components/loading"
@@ -15,6 +16,7 @@ const img = "https://img.freepik.com/premium-photo/chita_827316-164.jpg"
 
 export const ProfileCard = () => {
     const { userData } = useAuth()
+    const navigate = useNavigate()
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -37,6 +39,7 @@ export const ProfileCard = () => {
                 text: `${error.message}`,
                 confirmButtonText: 'Okay',
             })}
+            {isError && navigate("/")}
             <div className={`w-[500px] h-[600px] flex flex-col items-center relative border-[#41c48b] border-[3px]`}>
                 <div className="mt-10">{isLoading && <Loading size={50}/> }</div>
                 {data && <img src={data ? data : img} alt="profile" className="w-[200px] h-[200px] rounded-full object-cover border-[#41c48b] border-[3px]"/>}

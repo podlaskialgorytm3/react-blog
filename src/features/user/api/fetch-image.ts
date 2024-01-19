@@ -3,7 +3,7 @@ import { imageDatabase } from "../../../shared/config/config";
 
 export const fetchImage = async (id: number) => {
   try {
-    const res = await listAll(ref(imageDatabase, "uploadss"));
+    const res = await listAll(ref(imageDatabase, "uploads"));
 
     const promises = res.items.map(async (item) => {
       const url = await getDownloadURL(item);
