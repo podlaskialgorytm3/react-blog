@@ -10,6 +10,9 @@ import { Button } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { createPost } from '../api/create-post';
 import { ApiKeyTinyMMC } from '../../../shared/config/config';
+import { queryClient } from '../api/query-client';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const DEFAULT_POST: PostContent = {
     userId: 0,
@@ -21,12 +24,22 @@ export const AddPostForm = () => {
     const [content, setContent] = useState<string>('');
     const [error, setError] = useState<PostContent>(DEFAULT_POST);
     const { userData } = useAuth();
+    const navigate = useNavigate();
+
     const handleContentChange = (e: React.FormEvent<HTMLFormElement> | any) => setContent(e.target.getContent());
 
     const { mutate } = useMutation({
         mutationFn: createPost,
         onSuccess: (data) => {
             console.log(data)
+            queryClient.invalidateQueries({queryKey: ['posts']});
+            Swal.fire({
+                title: 'Success!',
+                text: 'Your post has been created',
+                icon: 'success',
+                confirmButtonText: 'Okey'
+            })
+            navigate("/")
         }
     })
 
