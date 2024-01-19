@@ -4,7 +4,7 @@ export const fetchPostCount = async (userId: number) => {
     if (!response.ok) {
         throw new Error(response.statusText);
     }
-    const data = await response.json();
+    const data  = await response.json();
 
     return data;
 }

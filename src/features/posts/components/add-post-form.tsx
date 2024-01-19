@@ -106,7 +106,7 @@ export const AddPostForm = () => {
                         skin: 'oxide-dark',
                         language: 'en'
                         }}
-                    initialValue="Create your first POST!"
+                    initialValue=""
                 />
                 <p className="text-red-500">{error.content}</p>
                 <Button
