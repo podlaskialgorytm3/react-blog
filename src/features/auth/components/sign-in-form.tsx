@@ -14,7 +14,7 @@ import { SignInData } from '../types/sing-in';
 import { fromZodError } from 'zod-validation-error';
 
 import { Copyright } from './copyright';
-import { BallTriangle } from 'react-loader-spinner';
+import { Loading } from '../../../shared/components/loading';
 import { ErrorModal } from './error-modal'
 
 import { userSchemaLogin as userSchema } from '../utils/validate';
@@ -87,16 +87,7 @@ export default function SignInForm() {
           alignItems: 'center',
         }}
       >
-        {isPending && <BallTriangle
-        height={100}
-        width={100}
-        radius={5}
-        color="#41c48b"
-        ariaLabel="ball-triangle-loading"
-        wrapperStyle={{marginBottom: '50px'}}
-        wrapperClass=""
-        visible={true}
-      />}
+        {isPending && <Loading size={100}/>}
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
