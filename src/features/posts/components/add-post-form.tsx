@@ -11,7 +11,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 
-let DEFAULT_POST: PostContent = {
+const DEFAULT_POST: PostContent = {
     title: '',
     content: ''
 }
