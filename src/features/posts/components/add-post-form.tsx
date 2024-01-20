@@ -11,6 +11,9 @@ import { ApiKeyTinyMMC } from '../../../shared/config/confidential-data';
 import { useCreatePost } from '../api/use-create-post';
 import { generateID } from '../utils/generate-id';
 
+import { ref, uploadBytes } from "firebase/storage";
+import { imageDatabase } from '../../../shared/config/firebase-image';
+
 const DEFAULT_POST: PostContent = {
     postId: 0,
     userId: 0,
@@ -21,11 +24,24 @@ const DEFAULT_POST: PostContent = {
 export const AddPostForm = () => {
     const [content, setContent] = useState<string>('');
     const [error, setError] = useState<PostContent>(DEFAULT_POST);
+    const [image, setImage] = useState<any>(null);
     const { userData } = useAuth();
     const { mutate } = useCreatePost()
 
     const handleContentChange = (e: React.FormEvent<HTMLFormElement> | any) => setContent(e.target.getContent());
     const randomID = generateID(1000000000);
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        if (e.target.files) {
+            setImage(e.target.files[0])
+        }
+    }  
+    
+    const uploadImage = (image: any) => {
+        uploadBytes(ref(imageDatabase, `posts/${randomID}`), image).then(() => {
+            window.location.reload();
+        })
+    }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -39,6 +55,7 @@ export const AddPostForm = () => {
         try{
             let PostContentSchema = postContentSchema.parse(postContent);
             setError(DEFAULT_POST);
+            uploadImage(image);
             mutate({...PostContentSchema, postId: randomID})
         }
         catch(errorInfo: any){
@@ -103,6 +120,7 @@ export const AddPostForm = () => {
                         sx={{width: '100%', height: '100%', opacity: '0'}}
                         type='file'
                         inputProps={{ accept: 'image/*' }} 
+                        onChange={handleImageChange}
                     />
                 </div>
                 <Button
