@@ -9,9 +9,10 @@ import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import { ApiKeyTinyMMC } from '../../../shared/config/confidential-data';
 import { useCreatePost } from '../api/use-create-post';
-
+import { generateID } from '../utils/generate-id';
 
 const DEFAULT_POST: PostContent = {
+    postId: 0,
     userId: 0,
     title: '',
     content: ''
@@ -21,13 +22,15 @@ export const AddPostForm = () => {
     const [content, setContent] = useState<string>('');
     const [error, setError] = useState<PostContent>(DEFAULT_POST);
     const { userData } = useAuth();
-    
-    const handleContentChange = (e: React.FormEvent<HTMLFormElement> | any) => setContent(e.target.getContent());
     const { mutate } = useCreatePost()
+
+    const handleContentChange = (e: React.FormEvent<HTMLFormElement> | any) => setContent(e.target.getContent());
+    const randomID = generateID(1000000000);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let postContent: PostContent = {
+            postId: randomID,
             userId: userData.user_id,
             title: e.currentTarget['post-title'].value,
             content: content
@@ -36,7 +39,7 @@ export const AddPostForm = () => {
         try{
             let PostContentSchema = postContentSchema.parse(postContent);
             setError(DEFAULT_POST);
-            mutate(PostContentSchema)
+            mutate({...PostContentSchema, postId: randomID})
         }
         catch(errorInfo: any){
             const validationError = fromZodError(errorInfo);
