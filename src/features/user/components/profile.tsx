@@ -2,9 +2,10 @@ import { useAuth } from "../../../shared/hooks/useAuth"
 import { imageDatabase } from "../../../shared/config/config"
 import { ref,uploadBytes } from "firebase/storage"
 import { useQuery } from "@tanstack/react-query"
-import { fetchImage } from "../api/fetch-image";
 import { fetchPostCount } from "../api/fetch-post-count";
 import { Loading } from "../../../shared/components/loading"
+
+import { useFetchImage } from "../api/use-fetch-image";
 
 const img = "https://img.freepik.com/premium-photo/chita_827316-164.jpg"
 
@@ -19,11 +20,7 @@ export const ProfileCard = () => {
         }
     }    
 
-    const { data: imgURL, isLoading: isLoadingImg} = useQuery({
-        queryFn: () => fetchImage(userData.user_id),
-        refetchOnWindowFocus: false,
-        queryKey: ["uploads"],
-    })
+    const { data: imgURL, isLoading: isLoadingImg} = useFetchImage(userData.user_id)
 
     const {data: postCount, isLoading: isLoadingPostCount} = useQuery({
         queryFn: () => fetchPostCount(userData.user_id),
