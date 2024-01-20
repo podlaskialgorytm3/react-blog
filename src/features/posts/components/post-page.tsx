@@ -1,18 +1,11 @@
-import { useParams } from "react-router-dom"
-import { fetchPost } from "../../../api/fetch-post"
-import { useQuery } from "@tanstack/react-query"
+import { PostRequest } from "../types/post-content"
 
-export const PostPage = () => {
-    const { id } = useParams<{id: string}>();
-
-    const { data: post } = useQuery({
-        queryKey: ["post", id],
-        queryFn: () => fetchPost(parseInt(id || ""))
-    })
-
+export const PostPage = ({post}: {post: PostRequest}) => {
+    console.log(post.description)
     return (
-        <div>
-            {post && console.log(post)}
+        <div className="w-[1000px] flex flex-col items-center mt-10">
+            <h1 className="text-[36px]">{post.title}</h1>
+            <div dangerouslySetInnerHTML={{ __html: post.description }} />
         </div>
     )
 }
