@@ -1,4 +1,4 @@
-import { PostRequest } from "../types/post-content"
+import { PostRequest } from "../../../shared/types/post-request"
 import { UserLabel } from "./user-label"
 
 export const PostPage = ({post}: {post: PostRequest}) => {

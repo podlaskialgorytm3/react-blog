@@ -1,4 +1,4 @@
-import { PostRequest } from "../types/post-content"
+import { PostRequest } from "../../../shared/types/post-request"
 import { PostCard } from "./post-card"
 import { Loading } from "../../../shared/components/loading"
 import Swal from "sweetalert2"
