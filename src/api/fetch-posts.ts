@@ -1,5 +1,5 @@
 import { fetchPostImage } from "./fetch-post-image";
-import { fetchUsername } from "./fetch-username";
+import { fetchUsername } from "../features/posts/api/fetch-username";
 import { fetchUserImage } from "./fetch-user-image"; // Dodaj import
 
 export const fetchPosts = async () => {

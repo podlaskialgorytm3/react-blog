@@ -1,4 +1,4 @@
-import { fetchPosts } from "../api/fetch-posts"
+import { fetchPosts } from "../../../api/fetch-posts"
 import { PostRequest } from "../types/post-content"
 import { useQuery } from "@tanstack/react-query"
 
