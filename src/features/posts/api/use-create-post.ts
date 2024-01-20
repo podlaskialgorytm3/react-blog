@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { createPost } from '../api/create-post';
-import { queryClient } from '../api/query-client';
+import { queryClient } from '../../../api/query-client';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
