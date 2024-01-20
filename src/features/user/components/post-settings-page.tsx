@@ -1,18 +1,14 @@
-import { useQuery } from "@tanstack/react-query"
-import { fetchUserPost } from "../api/fetch-user-post"
 import { useAuth } from "../../../shared/hooks/useAuth"
 import { PostRequest } from "../../../shared/types/post-request"
 import { PostSettingsCard } from "./post-settings-card"
 import { Loading } from "../../../shared/components/loading"
 import Swal from "sweetalert2"
+import { useFetchUserPost } from "../api/use-fetch-user-post"
 
 export const PostSettingsPage = () => {
     const { userData } = useAuth();
 
-    const { data, isLoading, isError, error } = useQuery({
-        queryKey: ["post"],
-        queryFn: () => fetchUserPost(userData.user_id)
-    })
+    const { data, isLoading, isError, error } = useFetchUserPost(userData.user_id)
 
     if(isError){
         Swal.fire({
