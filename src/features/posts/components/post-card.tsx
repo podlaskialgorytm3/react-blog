@@ -7,8 +7,8 @@ export const PostCard = ({ post }: { post: PostRequest }) => {
     return (
         <div className="w-[500px] h-[450px] m-5">
             <div className="w-full h-[100px] flex flex-row items-center justify-start">
-                <img src={userImg} alt="post" className="w-[70px] m-5 object-cover rounded-[50%]" />
-                <p className="text-[24px]">Podlaski Algorytm</p>
+                <img src={post.user.image ? post.user.image : userImg} alt="post" className="w-[70px] h-[70px] m-5 object-cover rounded-[50%]" />
+                <p className="text-[24px]">{post.user.first_name} {post.user.last_name}</p>
             </div>
             <div>
                 <img src={post.image ? post.image : postImage} alt="post" className="w-full h-[250px] object-cover rounded-[50px]" />

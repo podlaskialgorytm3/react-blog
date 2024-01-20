@@ -10,4 +10,9 @@ export interface PostRequest {
     title: string;
     description: string;
     image: string;
+    user: {
+        first_name: string;
+        last_name: string;
+        image: string;
+    }
 }
