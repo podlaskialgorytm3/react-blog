@@ -1,7 +1,7 @@
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { imageDatabase } from "../../../shared/config/firebase-image";
 
-export const fetchImage = async (id: number) => {
+export const fetchProfileImage = async (id: number) => {
   try {
     const res = await listAll(ref(imageDatabase, "uploads"));
 

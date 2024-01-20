@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchImage } from "../api/fetch-image";
+import { fetchProfileImage } from "./fetch-profile-image";
 
 export const useFetchImage = (id: number) => {
     
    const fetchImageQuery = useQuery({
-        queryFn: () => fetchImage(id),
+        queryFn: () => fetchProfileImage(id),
         refetchOnWindowFocus: false,
         queryKey: ["uploads"],
     });
