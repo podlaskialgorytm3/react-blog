@@ -3,7 +3,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { postImage } from "../../../shared/constants/data";
 
-export const PostSettingsCard = ({post}: {post: PostRequest}) => {
+export const PostSettingsCard = ({post,handleDeletePost}: {post: PostRequest, handleDeletePost(id: number): void}) => {
     return(
         <div className={`w-[600px] h-[100px] flex items-center justify-between flex-row m-5`}>
             <div className="flex items-center">
@@ -12,7 +12,7 @@ export const PostSettingsCard = ({post}: {post: PostRequest}) => {
             </div>
             <div>
                 <EditIcon sx={{width: '45px', height: "45px"}}/>
-                <DeleteIcon sx={{width: '45px', height: "45px"}}/>
+                <DeleteIcon sx={{width: '45px', height: "45px"}} onClick={() => handleDeletePost(post.post_id)}/>
             </div>
         </div>
     )
