@@ -1,18 +1,13 @@
 import { useParams } from "react-router-dom"
-import { fetchPost } from "../../../api/fetch-post"
-import { useQuery } from "@tanstack/react-query"
 import { PostPage } from "./post-page"
-
 import { Loading } from "../../../shared/components/loading"
 import Swal from "sweetalert2"
+import { useFetchPost } from "../api/use-fetch-post"
 
 export const PostPageContainer = () => {
     const { id } = useParams<{id: string}>();
 
-    const { data: post, isLoading, isError, error } = useQuery({
-        queryKey: ["post", id],
-        queryFn: () => fetchPost(parseInt(id || ""))
-    })
+    const { data: post, isLoading, isError, error } = useFetchPost(id || "")
 
     if(isError) {
         Swal.fire({
