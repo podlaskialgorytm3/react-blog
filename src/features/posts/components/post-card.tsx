@@ -1,8 +1,7 @@
-import { PostRequest } from "../types/post-content"
+import { PostRequest } from "../../../shared/types/post-request"
 import { Link } from "react-router-dom"
 import { UserLabel } from "./user-label"
-
-const postImage = "https://uploads.sitepoint.com/wp-content/uploads/2017/04/1493235373large_react_apps_A-01.png"
+import {postImage} from "../../../shared/constants/data"
 
 export const PostCard = ({ post }: { post: PostRequest }) => {
     return (
