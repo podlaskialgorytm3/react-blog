@@ -7,7 +7,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
-import { ApiKeyTinyMMC } from '../../../shared/config/config';
+import { ApiKeyTinyMMC } from '../../../shared/config/confidential-data';
 import { useCreatePost } from '../api/use-create-post';
 
 

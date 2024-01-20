@@ -1,5 +1,5 @@
 import { useAuth } from "../../../shared/hooks/useAuth"
-import { imageDatabase } from "../../../shared/config/config"
+import { imageDatabase } from "../../../shared/config/firebase-image"
 import { ref,uploadBytes } from "firebase/storage"
 import { Loading } from "../../../shared/components/loading"
 

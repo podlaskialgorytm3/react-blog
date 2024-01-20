@@ -1,5 +1,5 @@
 import { ref, listAll, getDownloadURL } from "firebase/storage";
-import { imageDatabase } from "../../../shared/config/config";
+import { imageDatabase } from "../../../shared/config/firebase-image";
 
 export const fetchImage = async (id: number) => {
   try {
