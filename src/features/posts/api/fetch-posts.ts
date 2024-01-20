@@ -1,5 +1,6 @@
-import { fetchImage } from "./fetch-image";
+import { fetchPostImage } from "./fetch-post-image";
 import { fetchUsername } from "./fetch-username";
+import { fetchUserImage } from "./fetch-user-image"; // Dodaj import
 
 export const fetchPosts = async () => {
     const response = await fetch('http://localhost:3000/fetch-posts');
@@ -10,21 +11,25 @@ export const fetchPosts = async () => {
 
     const posts = await response.json();
 
-    const usernamePromises = posts.map(async (post: any) => {
+    const userPromises = posts.map(async (post: any) => {
         const userData = await fetchUsername(post.user_id);
-        post.username = userData; // Dodaj username do obiektu post
+        post.user = userData;
+
+        // Dodaj image do obiektu user
+        const userImage = await fetchUserImage(post.user_id);
+        post.user.image = userImage;
     });
 
-    await Promise.all(usernamePromises);
+    await Promise.all(userPromises);
 
     const imagePromises = posts.map(async (post: any) => {
-        const image = await fetchImage(post.post_id);
+        const image = await fetchPostImage(post.post_id);
         post.image = image;
     });
 
     await Promise.all(imagePromises);
 
-    console.log(posts)
+    console.log(posts);
 
     return posts;
 };
