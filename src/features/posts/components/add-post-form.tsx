@@ -71,7 +71,7 @@ export const AddPostForm = () => {
                     id="standard-basic" 
                     label="Title" 
                     variant="standard" 
-                    name="post-title"
+                    name="post-title" 
                     sx={{width: '100%'}}
                     error={error.title ? true : false}
                     helperText={error.title}
@@ -93,6 +93,18 @@ export const AddPostForm = () => {
                     initialValue=""
                 />
                 <p className="text-red-500">{error.content}</p>
+                <div className='bg-main box-border rounded-lg relative'>
+                    <h1 className='absolute top-[20%] left-[40%] font-bold'>Upload Image</h1>
+                    <TextField 
+                        id="standard-basic" 
+                        label="Image" 
+                        variant="standard" 
+                        name="post-image" 
+                        sx={{width: '100%', height: '100%', opacity: '0'}}
+                        type='file'
+                        inputProps={{ accept: 'image/*' }} 
+                    />
+                </div>
                 <Button
                 type="submit"
                 variant="contained"
