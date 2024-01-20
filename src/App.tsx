@@ -14,6 +14,7 @@ import { Profile } from "./pages/user/profile";
 import { Settings } from "./pages/user/settings";
 import { PostSettings } from "./pages/user/post-settings";
 import { AddPost } from "./pages/user/add-post";
+import { Post } from "./pages/user/post";
 
 import { queryClient } from "./features/auth/utils/fetch-data"
 
@@ -33,6 +34,7 @@ const route = createBrowserRouter([
         {path: '/user/settings',element: <Settings/>},
         {path: '/user/post-settings',element: <PostSettings/>},
       ]},
+      {path: '/post/:id',element: <Post />},
       {path: '/add-post',element: <AddPost />},
     ]
   }, 
