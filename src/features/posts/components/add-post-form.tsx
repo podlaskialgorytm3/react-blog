@@ -47,7 +47,7 @@ export const AddPostForm = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        let postContent: PostContent = {
+        const postContent: PostContent = {
             postId: randomID,
             userId: userData.user_id,
             title: e.currentTarget['post-title'].value,
@@ -55,10 +55,10 @@ export const AddPostForm = () => {
         }
         setError(DEFAULT_POST_ERRORS);
         try{
-            let PostContentSchema = postContentSchema.parse(postContent);
+            const postContentCorrectData = postContentSchema.parse(postContent);
             setError(DEFAULT_POST_ERRORS);
             uploadImage(image);
-            mutate({...PostContentSchema, postId: randomID})
+            mutate({...postContentCorrectData, postId: randomID})
         }
         catch(errorInfo: any){
             const validationError = fromZodError(errorInfo);
