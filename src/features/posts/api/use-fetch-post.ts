@@ -3,10 +3,9 @@ import { fetchPost } from "../../../api/fetch-post";
 
 export const useFetchPost = (id: string) => {
     
-    const fetchPostQuery = useQuery({
+    return useQuery({
         queryKey: ["post", id],
         queryFn: () => fetchPost(parseInt(id || ""))
     })
 
-    return fetchPostQuery;
 }
