@@ -5,8 +5,6 @@ import { fetchUserImage } from "./fetch-user-image";
 export const fetchPost = async (post_id: number) => {
     const response = await fetch(`http://localhost:3000/fetch-post/${post_id}`);
 
-    console.log(response)
-
     if (!response.ok) {
         throw new Error(response.statusText);
     }

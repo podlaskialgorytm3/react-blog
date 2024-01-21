@@ -15,7 +15,7 @@ export const PostContainer = () => {
             confirmButtonText: "Ok"
         })
     }
-    if(!isLoading || data.length === 0){
+    if(!isLoading && data.length === 0){
         Swal.fire({
             icon: "info",
             title: "Oops...",

@@ -29,8 +29,7 @@ export const useCreatePost = () => {
     const navigate = useNavigate();
     const createPostMutation = useMutation({
         mutationFn: createPost,
-        onSuccess: (data) => {
-            console.log(data)
+        onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['posts']});
             Swal.fire({
                 title: 'Success!',

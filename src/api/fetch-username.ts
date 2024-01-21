@@ -5,7 +5,6 @@ export const fetchUsername = async (userId: number) => {
     if(!response.ok) {
         throw new Error(username.message)
     }
-    console.log(username)
 
     return username
 }
