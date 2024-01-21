@@ -11,8 +11,7 @@ export const createPost = async (postData: PostContent) => {
     })
     if(!response.ok) {
         const info = await response.json()
-        console.log(info)
-        const error: any = new Error(info.details || 'Something went wrong')
+        const error: object = new Error(info.details || 'Something went wrong')
         throw error
     }
 

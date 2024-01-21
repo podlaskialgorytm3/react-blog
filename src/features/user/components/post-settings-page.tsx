@@ -9,9 +9,7 @@ import { useDeletePost } from "../api/use-delete-post"
 export const PostSettingsPage = () => {
     const { userData } = useAuth();
     const { data, isLoading, isError, error } = useFetchUserPost(userData.user_id)
-
     const { mutate } = useDeletePost()
-
     if(isError){
         Swal.fire({
             icon: "error",
