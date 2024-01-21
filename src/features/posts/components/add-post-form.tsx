@@ -21,9 +21,11 @@ const DEFAULT_POST: PostContent = {
     content: ''
 }
 
+const DEFAULT_POST_ERRORS: PostContent = DEFAULT_POST;
+
 export const AddPostForm = () => {
     const [content, setContent] = useState<string>('');
-    const [error, setError] = useState<PostContent>(DEFAULT_POST);
+    const [error, setError] = useState<PostContent>(DEFAULT_POST_ERRORS);
     const [image, setImage] = useState<any>(null);
     const { userData } = useAuth();
     const { mutate } = useCreatePost()
@@ -51,10 +53,10 @@ export const AddPostForm = () => {
             title: e.currentTarget['post-title'].value,
             content: content
         }
-        setError(DEFAULT_POST);
+        setError(DEFAULT_POST_ERRORS);
         try{
             let PostContentSchema = postContentSchema.parse(postContent);
-            setError(DEFAULT_POST);
+            setError(DEFAULT_POST_ERRORS);
             uploadImage(image);
             mutate({...PostContentSchema, postId: randomID})
         }
