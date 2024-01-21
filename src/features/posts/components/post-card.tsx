@@ -1,9 +1,9 @@
-import { PostRequest } from "../../../shared/types/post-request"
+import { PostResponse } from "../../../shared/types/post-response"
 import { Link } from "react-router-dom"
 import { UserLabel } from "./user-label"
 import {postImage} from "../../../shared/constants/data"
 
-export const PostCard = ({ post }: { post: PostRequest }) => {
+export const PostCard = ({ post }: { post: PostResponse }) => {
     return (
         
         <div className="w-[500px] h-[450px] m-5">

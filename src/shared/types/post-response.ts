@@ -1,4 +1,4 @@
-export interface PostRequest {
+export interface PostResponse {
     post_id: number;
     user_id: number;
     title: string;

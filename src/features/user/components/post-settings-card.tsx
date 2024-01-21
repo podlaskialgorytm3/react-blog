@@ -1,9 +1,9 @@
-import { PostRequest } from "../../../shared/types/post-request"
+import { PostResponse } from "../../../shared/types/post-response"
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { postImage } from "../../../shared/constants/data";
 
-export const PostSettingsCard = ({post,handleDeletePost}: {post: PostRequest, handleDeletePost(id: number): void}) => {
+export const PostSettingsCard = ({post,handleDeletePost}: {post: PostResponse, handleDeletePost(id: number): void}) => {
     return(
         <div className={`w-[600px] h-[100px] flex items-center justify-between flex-row m-5`}>
             <div className="flex items-center">

@@ -1,5 +1,5 @@
 import { useAuth } from "../../../shared/hooks/useAuth"
-import { PostRequest } from "../../../shared/types/post-request"
+import { PostResponse } from "../../../shared/types/post-response"
 import { PostSettingsCard } from "./post-settings-card"
 import { Loading } from "../../../shared/components/loading"
 import Swal from "sweetalert2"
@@ -28,7 +28,7 @@ export const PostSettingsPage = () => {
                 <h1 className="text-[36px] mb-5">Post Settings 🔧🗂️</h1>
                 {isLoading && <Loading size={100} />}
                 {data && 
-                data.map((post: PostRequest) => (<PostSettingsCard key={post.post_id} post={post} handleDeletePost={handleDeletePost}/>))}
+                data.map((post: PostResponse) => (<PostSettingsCard key={post.post_id} post={post} handleDeletePost={handleDeletePost}/>))}
          </div>
     )
 }

@@ -1,7 +1,7 @@
-import { PostRequest } from "../../../shared/types/post-request"
+import { PostResponse } from "../../../shared/types/post-response"
 import { UserLabel } from "./user-label"
 
-export const PostPage = ({post}: {post: PostRequest}) => {
+export const PostPage = ({post}: {post: PostResponse}) => {
     console.log(post.description)
     return (
         <div className="w-[1000px] flex flex-col items-center mt-10">
