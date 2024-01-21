@@ -15,6 +15,14 @@ export const PostContainer = () => {
             confirmButtonText: "Ok"
         })
     }
+    if(!isLoading || data.length === 0){
+        Swal.fire({
+            icon: "info",
+            title: "Oops...",
+            text: "No posts on the database",
+            confirmButtonText: "Ok"
+        })
+    }
     
     return (
         <div className="w-[1200px] flex flex-wrap justify-center">
