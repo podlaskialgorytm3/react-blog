@@ -17,7 +17,7 @@ export const fetchUserImage = async (id: number) => {
     const urls = await Promise.all(promises);
     const filteredUrls = urls.filter((url) => url !== undefined);
 
-    return filteredUrls[0] || null; // Return null if no matching URL is found
+    return filteredUrls[0] || null; 
   } catch (error) {
     console.error("Error fetching image:", error);
     throw error;
