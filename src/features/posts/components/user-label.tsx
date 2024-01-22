@@ -1,4 +1,4 @@
-import { UserLabelSchema } from "../types/user-label"
+import { UserLabel as UserLabelSchema } from "../types/user-label"
 
 const userImg = "https://img.freepik.com/premium-photo/chita_827316-164.jpg"
 
