@@ -1,8 +1,4 @@
-import { QueryClient } from "@tanstack/react-query";
-
 import { ResultData } from "../types/user-data";
-
-export const queryClient = new QueryClient();
 
 export const updateUser = async (userData: ResultData) => {
     const response = await fetch('http://localhost:3000/update-user',{

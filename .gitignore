@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+# Pliki projektowe
+src/shared/config/confidential-data.ts
+.env

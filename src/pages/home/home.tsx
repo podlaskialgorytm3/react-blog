@@ -1,16 +1,18 @@
 import { Description } from "../../features/home/components/description"
 import { Title } from "../../features/home/components/title"
 
-import { TextContainer } from "../../features/home/components/text-container"
+import { HomeContainer } from "../../features/home/components/home"
+import { PostContainer } from "../../features/posts/components/post-container"
 
 
 export const Home = () => {
     return (
        <main>
-        <TextContainer>
+        <HomeContainer>
             <Title />
             <Description />
-        </TextContainer>
+        </HomeContainer>
+        <PostContainer />
        </main>
     )
 }

@@ -59,7 +59,7 @@ export const ProfileSettings = () => {
 
     return(
         <div>
-            <h1 className="text-4xl">Profile Settings</h1>
+            <h1 className="text-4xl">Profile Settings ⚙️⚒️</h1>
             <Box
                 component="form"
                 onSubmit={handleSubmit}

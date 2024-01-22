@@ -1,7 +1,9 @@
+import { PostSettingsContainer } from "../../features/user/components/post-settings-container"
+
 export const PostSettings = () => {
   return(
      <>
-          <h1>Ustawienia bloga!</h1>   
+          <PostSettingsContainer />  
      </>
   )
 }

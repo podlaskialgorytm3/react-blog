@@ -1,38 +1,64 @@
 import { useState } from 'react';
+import { useAuth } from '../../../shared/hooks/useAuth';
 import { PostContent } from '../types/post-content';
 import { postContentSchema } from '../utils/validate';
 import { fromZodError } from 'zod-validation-error';
-
+import { Editor } from '@tinymce/tinymce-react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
+import { ApiKeyTinyMMC } from '../../../shared/config/confidential-data';
+import { useCreatePost } from '../api/use-create-post';
+import { generateID } from '../utils/generate-id';
+import { EDITOR_INIT } from '../constants/editor-props';
+import { ref, uploadBytes } from "firebase/storage";
+import { imageDatabase } from '../../../shared/config/firebase-image';
 
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-
-
-let DEFAULT_POST: PostContent = {
+const DEFAULT_POST: PostContent = {
+    postId: 0,
+    userId: 0,
     title: '',
     content: ''
 }
 
+const DEFAULT_POST_ERRORS: PostContent = DEFAULT_POST;
+
 export const AddPostForm = () => {
     const [content, setContent] = useState<string>('');
-    const [error, setError] = useState<PostContent>(DEFAULT_POST);
-    const handleContentChange = (content: string) => setContent(content);
+    const [error, setError] = useState<PostContent>(DEFAULT_POST_ERRORS);
+    const [image, setImage] = useState<any>(null);
+    const { userData } = useAuth();
+    const { mutate } = useCreatePost()
 
+    const handleContentChange = (e: React.FormEvent<HTMLFormElement> | any) => setContent(e.target.getContent());
+    const randomID = generateID(1000000000);
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        if (e.target.files) {
+            setImage(e.target.files[0])
+        }
+    }  
+    
+    const uploadImage = (image: any) => {
+        uploadBytes(ref(imageDatabase, `posts/${randomID}`), image).then(() => {
+            window.location.reload();
+        })
+    }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        let postContent: PostContent = {
+        const postContent: PostContent = {
+            postId: randomID,
+            userId: userData.user_id,
             title: e.currentTarget['post-title'].value,
             content: content
         }
-        setError(DEFAULT_POST);
+        setError(DEFAULT_POST_ERRORS);
         try{
-            let PostContent = postContentSchema.parse(postContent);
-            setError(DEFAULT_POST);
-            console.log(PostContent)
+            const postContentCorrectData = postContentSchema.parse(postContent);
+            setError(DEFAULT_POST_ERRORS);
+            uploadImage(image);
+            mutate({...postContentCorrectData, postId: randomID})
         }
         catch(errorInfo: any){
             const validationError = fromZodError(errorInfo);
@@ -64,17 +90,31 @@ export const AddPostForm = () => {
                     id="standard-basic" 
                     label="Title" 
                     variant="standard" 
-                    name="post-title"
+                    name="post-title" 
                     sx={{width: '100%'}}
                     error={error.title ? true : false}
                     helperText={error.title}
                 />
-                <ReactQuill
-                    theme="snow" 
-                    value={content}
+                <Editor
+                    apiKey={ApiKeyTinyMMC}
                     onChange={handleContentChange}
+                    init={EDITOR_INIT}
+                    initialValue=""
                 />
                 <p className="text-red-500">{error.content}</p>
+                <div className='bg-main box-border rounded-lg relative'>
+                    <h1 className='absolute top-[20%] left-[40%] font-bold'>Upload Image</h1>
+                    <TextField 
+                        id="standard-basic" 
+                        label="Image" 
+                        variant="standard" 
+                        name="post-image" 
+                        sx={{width: '100%', height: '100%', opacity: '0'}}
+                        type='file'
+                        inputProps={{ accept: 'image/*' }} 
+                        onChange={handleImageChange}
+                    />
+                </div>
                 <Button
                 type="submit"
                 variant="contained"

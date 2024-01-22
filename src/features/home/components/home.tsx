@@ -5,7 +5,7 @@ import PropsType from "../types/props-types"
 
 import { Menu } from "./menu"
 
-export const TextContainer = ({children}: any) => {
+export const HomeContainer = ({children}: any) => {
     const  {auth, userData}  = useAuth();
 
     const props = useSpring<PropsType>({

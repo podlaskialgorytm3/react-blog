@@ -15,7 +15,6 @@ export const SuccessModal:React.FC<{isOpen: boolean,redirect_time: number,text: 
                 setRemainingTime(remainingTime - 10);
             },10)
         }
-        console.log(remainingTime)
     },[remainingTime,isOpen])
 
     const percentage = Math.round((redirect_time - remainingTime) / redirect_time * 100);

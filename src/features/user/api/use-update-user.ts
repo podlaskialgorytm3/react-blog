@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { updateUser, queryClient } from './update-user';
+import { updateUser } from './update-user';
+import { queryClient } from '../../../api/query-client';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../shared/hooks/useAuth';
 import Swal from 'sweetalert2';
