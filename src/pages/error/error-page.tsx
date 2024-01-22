@@ -3,6 +3,8 @@ import { Container } from "@mui/material";
 import  darkTheme  from "../../shared/themes/dark-theme"
 import { Menu } from "../../shared/components/menu"
 import { CssBaseline } from '@mui/material';
+
+
 const centering = {display: 'flex', flexDirection: 'column', alignItems: "center"}
 
 export const ErrorPage = () => {

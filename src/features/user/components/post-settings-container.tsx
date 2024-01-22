@@ -6,7 +6,7 @@ import Swal from "sweetalert2"
 import { useFetchUserPost } from "../api/use-fetch-user-post"
 import { useDeletePost } from "../api/use-delete-post"
 
-export const PostSettingsPage = () => {
+export const PostSettingsContainer = () => {
     const { userData } = useAuth();
     const { data, isLoading, isError, error } = useFetchUserPost(userData.user_id)
     const { mutate } = useDeletePost()
