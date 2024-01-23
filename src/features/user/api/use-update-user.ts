@@ -5,7 +5,6 @@ import { useAuth } from '../../../shared/hooks/useAuth';
 import Swal from 'sweetalert2';
 import { ResultData } from "../types/user-data";
 
-
 const updateUser = async (userData: ResultData) => {
     const response = await fetch('http://localhost:3000/update-user',{
         method: 'PUT',
