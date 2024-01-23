@@ -12,7 +12,7 @@ export const PostSettingsCard = ({post,handleDeletePost} : PostSettings) => {
             </div>
             <div>
                 <EditIcon sx={{width: '45px', height: "45px"}}/>
-                <DeleteIcon sx={{width: '45px', height: "45px"}} onClick={() => handleDeletePost(post.post_id)}/>
+                <DeleteIcon sx={{width: '45px', height: "45px", cursor: "pointer"}} onClick={() => handleDeletePost(post.post_id)}/>
             </div>
         </div>
     )

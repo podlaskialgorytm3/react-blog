@@ -10,6 +10,7 @@ export const PostSettingsContainer = () => {
     const { userData } = useAuth();
     const { data, isLoading, isError, error } = useFetchUserPost(userData.user_id)
     const { mutate } = useDeletePost()
+
     if(isError){
         Swal.fire({
             icon: "error",
@@ -20,7 +21,18 @@ export const PostSettingsContainer = () => {
     }
 
     const handleDeletePost = (id: number) => {
-        mutate(id)
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Are you sure you want to delete this post?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+        }).then((result) => {
+            if(result.isConfirmed){
+                mutate(id)
+            }
+        })
     }
 
     return(
