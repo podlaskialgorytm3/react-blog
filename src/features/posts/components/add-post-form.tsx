@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../../../shared/hooks/useAuth';
-import { PostContent } from '../types/post-content';
+import { PostContent } from '../../../shared/types/post-content';
 import { postContentSchema } from '../../../shared/utils/validate-post';
 import { fromZodError } from 'zod-validation-error';
 import { Editor } from '@tinymce/tinymce-react';
@@ -12,15 +12,8 @@ import { useCreatePost } from '../api/use-create-post';
 import { generateID } from '../utils/generate-id';
 import { EDITOR_INIT } from '../../../shared/constants/editor-props';
 import { uploadImage } from '../../../api/upload-post-image';
+import { DEFAULT_POST_ERRORS } from '../../../shared/constants/post-content';
 
-const DEFAULT_POST: PostContent = {
-    postId: 0,
-    userId: 0,
-    title: '',
-    content: ''
-}
-
-const DEFAULT_POST_ERRORS: PostContent = DEFAULT_POST;
 
 export const AddPostForm = () => {
     const [content, setContent] = useState<string>('');
