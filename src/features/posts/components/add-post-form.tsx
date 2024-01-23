@@ -10,7 +10,7 @@ import { Button } from '@mui/material';
 import { ApiKeyTinyMMC } from '../../../shared/config/confidential-data';
 import { useCreatePost } from '../api/use-create-post';
 import { generateID } from '../utils/generate-id';
-import { EDITOR_INIT } from '../constants/editor-props';
+import { EDITOR_INIT } from '../../../shared/constants/editor-props';
 import { ref, uploadBytes } from "firebase/storage";
 import { imageDatabase } from '../../../shared/config/firebase-image';
 
