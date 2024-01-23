@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { PostPage } from "./post-page"
 import { Loading } from "../../../shared/components/loading"
 import Swal from "sweetalert2"
-import { useFetchPost } from "../api/use-fetch-post"
+import { useFetchPost } from "../../../api/use-fetch-post"
 
 export const PostPageContainer = () => {
     const { id } = useParams<{id: string}>();
