@@ -6,11 +6,13 @@ import { EDITOR_INIT } from "../../../shared/constants/editor-props";
 import { Editor } from '@tinymce/tinymce-react';
 import { Loading } from "../../../shared/components/loading";
 import { uploadImage } from "../../../api/upload-post-image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DEFAULT_POST_ERRORS } from "../../../shared/constants/post-content";
 import { PostContent } from "../../../shared/types/post-content";
-import { postContentSchema } from "../../../shared/utils/validate-post";
+import { postContentEditSchema } from "../../../shared/utils/validate-post";
 import { fromZodError } from "zod-validation-error";
+import { useUpdatePost } from "../api/use-update-post";
+import { EditPostContent } from "../types/edit-post-content";
 
 export const EditPostCard = () => {
     const [content, setContent] = useState<string>('');
@@ -19,6 +21,8 @@ export const EditPostCard = () => {
     const {id} = useParams<{id: string | undefined}>()
     const {data, isLoading} = useFetchPost(id || "")
 
+    const {mutate,isPending} = useUpdatePost();
+    
     const handleContentChange = (e: React.FormEvent<HTMLFormElement> | any) => setContent(e.target.getContent());
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         if (e.target.files) {
@@ -28,21 +32,28 @@ export const EditPostCard = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const postContent: PostContent = {
-            postId: data.post_id,
-            userId: data.user_id,
+        const postContent: EditPostContent = {
+            post_id: data.post_id,
             title: e.currentTarget['post-title'].value,
             content: content
         }
         setError(DEFAULT_POST_ERRORS);
         try{
-            const postContentCorrectData = postContentSchema.parse(postContent);
+            const postContentCorrectData = postContentEditSchema.parse(postContent);
+            
             setError(DEFAULT_POST_ERRORS);
-            console.log("Poprawnie zwalidowanO!")
-            //uploadImage(image,data.post_id);
-            //mutate({...postContentCorrectData, postId: data.post_id})
+            const sendData: EditPostContent = {
+                title: postContentCorrectData.title,
+                content: postContentCorrectData.content,
+                post_id: postContent.post_id
+            }
+            if(image){
+                uploadImage(image,data.post_id);
+            }
+            mutate(sendData)
         }
         catch(errorInfo: any){
+            console.log(errorInfo)
             const validationError = fromZodError(errorInfo);
             validationError.details.forEach((item: any) => {
               setError((prevState) => ({
@@ -53,12 +64,17 @@ export const EditPostCard = () => {
         }
     }
 
-    
+    useEffect(() => {
+        if(data){
+            setContent(data.description)
+        }
+    },[data])
 
     return(
         <div className="flex flex-col items-center">
             <h1 className="text-[36px] text-center mb-5">Editing Post 📄✏️</h1>
             {isLoading && <Loading size={100} />}
+            {isPending && <Loading size={100} />}
             {!isLoading && data && (
             <Box
                 component="form"

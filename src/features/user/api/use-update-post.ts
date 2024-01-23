@@ -16,7 +16,7 @@ const updatePost = async (data: EditPostContent) => {
 
     if(!response.ok) {
         const info = await response.json();
-        const error: any = new Error(info.details || 'Something went wrong');
+        const error = new Error(info.details || 'Something went wrong');
         throw error;
     }
 
