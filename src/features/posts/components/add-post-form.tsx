@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../../../shared/hooks/useAuth';
 import { PostContent } from '../types/post-content';
-import { postContentSchema } from '../utils/validate';
+import { postContentSchema } from '../../../shared/utils/validate-post';
 import { fromZodError } from 'zod-validation-error';
 import { Editor } from '@tinymce/tinymce-react';
 import Box from '@mui/material/Box';
