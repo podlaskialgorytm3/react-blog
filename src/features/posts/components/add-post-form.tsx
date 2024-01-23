@@ -11,8 +11,7 @@ import { ApiKeyTinyMMC } from '../../../shared/config/confidential-data';
 import { useCreatePost } from '../api/use-create-post';
 import { generateID } from '../utils/generate-id';
 import { EDITOR_INIT } from '../../../shared/constants/editor-props';
-import { ref, uploadBytes } from "firebase/storage";
-import { imageDatabase } from '../../../shared/config/firebase-image';
+import { uploadImage } from '../../../api/upload-post-image';
 
 const DEFAULT_POST: PostContent = {
     postId: 0,
@@ -39,11 +38,7 @@ export const AddPostForm = () => {
         }
     }  
     
-    const uploadImage = (image: any) => {
-        uploadBytes(ref(imageDatabase, `posts/${randomID}`), image).then(() => {
-            window.location.reload();
-        })
-    }
+    
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -57,7 +52,7 @@ export const AddPostForm = () => {
         try{
             const postContentCorrectData = postContentSchema.parse(postContent);
             setError(DEFAULT_POST_ERRORS);
-            uploadImage(image);
+            uploadImage(image,randomID);
             mutate({...postContentCorrectData, postId: randomID})
         }
         catch(errorInfo: any){
