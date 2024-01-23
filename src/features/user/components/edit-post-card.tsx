@@ -77,7 +77,7 @@ export const EditPostCard = () => {
                     label="Title" 
                     variant="standard" 
                     name="post-title" 
-                    content={data.title}
+                    defaultValue={data.title}
                     sx={{width: '100%'}}
                     error={error.title ? true : false}
                     helperText={error.title}
