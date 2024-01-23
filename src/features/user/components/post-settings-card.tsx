@@ -2,6 +2,7 @@ import { PostSettings } from "../types/post-settings"
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { postImage } from "../../../shared/constants/data";
+import { Link } from "react-router-dom";
 
 export const PostSettingsCard = ({post,handleDeletePost} : PostSettings) => {
     return(
@@ -11,7 +12,7 @@ export const PostSettingsCard = ({post,handleDeletePost} : PostSettings) => {
                 <h1 className="text-[20px] ml-5 w-[300px]">{post.title}</h1>
             </div>
             <div>
-                <EditIcon sx={{width: '45px', height: "45px"}}/>
+                <Link to={`/user/post-settings/edit/${post.post_id}`}><EditIcon sx={{width: '45px', height: "45px"}}/></Link>
                 <DeleteIcon sx={{width: '45px', height: "45px", cursor: "pointer"}} onClick={() => handleDeletePost(post.post_id)}/>
             </div>
         </div>
