@@ -4,27 +4,62 @@ import { Box, Button, TextField } from "@mui/material";
 import { ApiKeyTinyMMC } from "../../../shared/config/confidential-data";
 import { EDITOR_INIT } from "../../../shared/constants/editor-props";
 import { Editor } from '@tinymce/tinymce-react';
-
+import { Loading } from "../../../shared/components/loading";
+import { uploadImage } from "../../../api/upload-post-image";
+import { useState } from "react";
+import { DEFAULT_POST_ERRORS } from "../../../shared/constants/post-content";
+import { PostContent } from "../../../shared/types/post-content";
+import { postContentSchema } from "../../../shared/utils/validate-post";
+import { fromZodError } from "zod-validation-error";
 
 export const EditPostCard = () => {
+    const [content, setContent] = useState<string>('');
+    const [image, setImage] = useState<any>(null);
+    const [error, setError] = useState<PostContent>(DEFAULT_POST_ERRORS);
     const {id} = useParams<{id: string | undefined}>()
-    const {data} = useFetchPost(id || "")
+    const {data, isLoading} = useFetchPost(id || "")
 
-    const handleSubmit = () => {
-        console.log('submit')
+    const handleContentChange = (e: React.FormEvent<HTMLFormElement> | any) => setContent(e.target.getContent());
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        if (e.target.files) {
+            setImage(e.target.files[0])
+        }
+    }  
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const postContent: PostContent = {
+            postId: data.post_id,
+            userId: data.user_id,
+            title: e.currentTarget['post-title'].value,
+            content: content
+        }
+        setError(DEFAULT_POST_ERRORS);
+        try{
+            const postContentCorrectData = postContentSchema.parse(postContent);
+            setError(DEFAULT_POST_ERRORS);
+            console.log("Poprawnie zwalidowanO!")
+            //uploadImage(image,data.post_id);
+            //mutate({...postContentCorrectData, postId: data.post_id})
+        }
+        catch(errorInfo: any){
+            const validationError = fromZodError(errorInfo);
+            validationError.details.forEach((item: any) => {
+              setError((prevState) => ({
+                ...prevState,
+                [item.path[0]]: item.message,
+              }));
+            })
+        }
     }
 
-    const handleContentChange = () => {
-        console.log('content change')
-    }
-
-    const handleImageChange =(e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log('image change')
-    }
+    
 
     return(
-        <div>
-            <h1 className="text-[36px] text-center">Editing Post 📄✏️</h1>
+        <div className="flex flex-col items-center">
+            <h1 className="text-[36px] text-center mb-5">Editing Post 📄✏️</h1>
+            {isLoading && <Loading size={100} />}
+            {!isLoading && data && (
             <Box
                 component="form"
                 onSubmit={handleSubmit}
@@ -42,19 +77,20 @@ export const EditPostCard = () => {
                     label="Title" 
                     variant="standard" 
                     name="post-title" 
+                    content={data.title}
                     sx={{width: '100%'}}
-                    // error={error.title ? true : false}
-                    // helperText={error.title}
+                    error={error.title ? true : false}
+                    helperText={error.title}
                 />
                 <Editor
                     apiKey={ApiKeyTinyMMC}
                     onChange={handleContentChange}
                     init={EDITOR_INIT}
-                    initialValue=""
+                    initialValue={data.description}
                 />
-                {/* <p className="text-red-500">{error.content}</p> */}
+                <p className="text-red-500">{error.content}</p> 
                 <div className='bg-main box-border rounded-lg relative'>
-                    <h1 className='absolute top-[20%] left-[40%] font-bold'>Upload Image</h1>
+                    <h1 className='absolute top-[20%] left-[40%] font-bold'>Change Image</h1>
                     <TextField 
                         id="standard-basic" 
                         label="Image" 
@@ -76,6 +112,7 @@ export const EditPostCard = () => {
                 >Edit post
                 </Button>
             </Box>
+            )}
         </div>
     )
 }
