@@ -1,6 +1,22 @@
 import { useMutation } from "@tanstack/react-query";
-import { deletePost } from "./delete-post";
 import { queryClient } from "../../../api/query-client";
+import { DeletePostResponse } from '../types/delete-post-response';
+
+const deletePost = async (post_id: number): Promise<DeletePostResponse> => {
+    const response = await fetch(`http://localhost:3000/delete-post/${post_id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Something went wrong');
+    }
+
+    return response.json() as Promise<DeletePostResponse>;
+};
+
 
 export const useDeletePost = () => (
     useMutation({
