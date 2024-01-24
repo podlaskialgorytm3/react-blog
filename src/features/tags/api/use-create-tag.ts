@@ -1,6 +1,8 @@
 import { Tag } from '../types/tag';
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from '../../../api/query-client';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const createTag = async (tag: Tag) => {
     const response = await fetch(`http://localhost:3000/create-tag`,{
@@ -19,11 +21,19 @@ const createTag = async (tag: Tag) => {
     return data
 }
 
-export const useCreateTag = () => (
-    useMutation({
+export const useCreateTag = () => {
+    const navigate = useNavigate()
+    return useMutation({
         mutationFn: createTag,
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ["tags"]})
+            Swal.fire({
+                title: 'Success!',
+                text: 'Tag created successfully',
+                icon: 'success',
+                confirmButtonText: 'Okey'
+            })
+            navigate('/')
         }
     })
-)
+}
