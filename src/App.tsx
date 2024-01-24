@@ -16,6 +16,7 @@ import { PostSettings } from "./pages/user/post-settings";
 import { AddPost } from "./pages/user/add-post";
 import { Post } from "./pages/user/post";
 import { EditPost } from "./pages/user/edit-post";
+import { AddTag } from "./pages/user/add-tag";
 
 import { queryClient } from "./features/auth/utils/fetch-data"
 
@@ -37,6 +38,7 @@ const route = createBrowserRouter([
         {path: '/user/post-settings/edit/:id',element: <EditPost />}]},
       {path: '/post/:id',element: <Post />},
       {path: '/add-post',element: <AddPost />},
+      {path: '/add-tag',element: <AddTag />},
     ]
   }, 
 ])
