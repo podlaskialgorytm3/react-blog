@@ -6,10 +6,15 @@ import { useState } from "react";
 import { Tag } from "../types/tag"
 import { tagContentSchema } from "../utils/validate";
 import { fromZodError } from "zod-validation-error";
+import { useCreateTag } from "../api/use-create-tag";
+import { Loading } from "../../../shared/components/loading";
+import Swal from 'sweetalert2';
 
 export const AddTagForm = () => {
     const [color, setColor] = useState<string>('#000000');
     const [error, setError] = useState<Tag>({name: '', color: ''});
+
+    const { mutate, isPending,isError,error: errorTag } = useCreateTag();
 
     const handleChangeColor = (newColor: string) => {
         setColor(newColor);
@@ -26,7 +31,7 @@ export const AddTagForm = () => {
             const tagCorrectData = tagContentSchema.parse(tag);
             setError({name: '', color: ''});
             console.log(tagCorrectData)
-            // mutate({...postContentCorrectData, postId: randomID})
+            mutate(tagCorrectData)
         }
         catch(errorInfo: any){
             const validationError = fromZodError(errorInfo);
@@ -39,9 +44,19 @@ export const AddTagForm = () => {
         }
     }
 
+    if(isError){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${errorTag?.message}`,
+            confirmButtonText: 'Ok',
+          })
+    }
+
     return (
         <div>
             <h1 className='text-center text-4xl'>Creating tag 🏷️✨ </h1>
+            {isPending && <Loading size={100} />}
             <Box
                 component="form"
                 onSubmit={handleSubmit}
