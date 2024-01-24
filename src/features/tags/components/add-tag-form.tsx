@@ -9,9 +9,11 @@ import { fromZodError } from "zod-validation-error";
 import { useCreateTag } from "../api/use-create-tag";
 import { Loading } from "../../../shared/components/loading";
 import Swal from 'sweetalert2';
+import { TagLabel } from "../../../shared/components/tag";
 
 export const AddTagForm = () => {
     const [color, setColor] = useState<string>('#000000');
+    const [name, setName] = useState<string>('');
     const [error, setError] = useState<Tag>({name: '', color: ''});
 
     const { mutate, isPending,isError,error: errorTag } = useCreateTag();
@@ -54,7 +56,7 @@ export const AddTagForm = () => {
     }
 
     return (
-        <div>
+        <div className="flex flex-col items-center">
             <h1 className='text-center text-4xl'>Creating tag 🏷️✨ </h1>
             {isPending && <Loading size={100} />}
             <Box
@@ -74,6 +76,7 @@ export const AddTagForm = () => {
                     sx={{width: '100%'}}
                     error={error.name ? true : false}
                     helperText={error.name}
+                    onChange={(e) => setName(e.target.value)}
                 />
                 <MuiColorInput value={color} onChange={handleChangeColor} />
                 <p className="text-[red]">{error.color}</p>
@@ -87,6 +90,7 @@ export const AddTagForm = () => {
                 >Create Tag
                 </Button>
             </Box>
+            <TagLabel name={name} color={color} />
         </div>
     )
 }
