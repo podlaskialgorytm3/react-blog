@@ -40,7 +40,6 @@ export const EditPostCard = () => {
         setError(DEFAULT_POST_ERRORS);
         try{
             const postContentCorrectData = postContentEditSchema.parse(postContent);
-            
             setError(DEFAULT_POST_ERRORS);
             const sendData: EditPostContent = {
                 title: postContentCorrectData.title,
@@ -53,7 +52,6 @@ export const EditPostCard = () => {
             mutate(sendData)
         }
         catch(errorInfo: any){
-            console.log(errorInfo)
             const validationError = fromZodError(errorInfo);
             validationError.details.forEach((item: any) => {
               setError((prevState) => ({
