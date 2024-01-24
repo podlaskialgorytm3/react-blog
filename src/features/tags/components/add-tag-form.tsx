@@ -10,11 +10,13 @@ import { useCreateTag } from "../api/use-create-tag";
 import { Loading } from "../../../shared/components/loading";
 import Swal from 'sweetalert2';
 import { TagLabel } from "../../../shared/components/tag";
+import { useAuth } from '../../../shared/hooks/useAuth';
 
 export const AddTagForm = () => {
     const [color, setColor] = useState<string>('#000000');
     const [name, setName] = useState<string>('');
-    const [error, setError] = useState<Tag>({name: '', color: ''});
+    const [error, setError] = useState<Tag>({name: '', color: '',userId: 0});
+    const { userData } = useAuth();
 
     const { mutate, isPending,isError,error: errorTag } = useCreateTag();
 
@@ -27,12 +29,12 @@ export const AddTagForm = () => {
         const tag:Tag = {
             name: e.currentTarget['name-tag'].value,
             color: color,
+            userId: userData.user_id
         }
-        setError({name: '', color: ''});
+        setError({name: '', color: '',userId: 0});
         try{
-            const tagCorrectData = tagContentSchema.parse(tag);
-            setError({name: '', color: ''});
-            console.log(tagCorrectData)
+            const tagCorrectData: Tag = tagContentSchema.parse(tag);
+            setError({name: '', color: '',userId: 0});
             mutate(tagCorrectData)
         }
         catch(errorInfo: any){
