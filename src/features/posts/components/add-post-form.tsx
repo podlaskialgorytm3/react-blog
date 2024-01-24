@@ -103,6 +103,9 @@ export const AddPostForm = () => {
                         onChange={handleImageChange}
                     />
                 </div>
+                <div className='flex flex-wrap justify-center items-center mt'>
+                    
+                </div>
                 <Button
                 type="submit"
                 variant="contained"
