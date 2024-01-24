@@ -13,7 +13,9 @@ import { generateID } from '../utils/generate-id';
 import { EDITOR_INIT } from '../../../shared/constants/editor-props';
 import { uploadImage } from '../../../api/upload-post-image';
 import { DEFAULT_POST_ERRORS } from '../../../shared/constants/post-content';
-
+import { useFetchTags } from '../../../api/use-fetch-tags';
+import { TagLabel } from '../../../shared/components/tag';
+import { Loading } from '../../../shared/components/loading';
 
 export const AddPostForm = () => {
     const [content, setContent] = useState<string>('');
@@ -21,6 +23,7 @@ export const AddPostForm = () => {
     const [image, setImage] = useState<any>(null);
     const { userData } = useAuth();
     const { mutate } = useCreatePost()
+    const { data: tags, isLoading: isLoadingTags } = useFetchTags();
 
     const handleContentChange = (e: React.FormEvent<HTMLFormElement> | any) => setContent(e.target.getContent());
     const randomID = generateID(1000000000);
@@ -103,8 +106,9 @@ export const AddPostForm = () => {
                         onChange={handleImageChange}
                     />
                 </div>
-                <div className='flex flex-wrap justify-center items-center mt'>
-                    
+                <div className='flex flex-wrap justify-center items-center'>
+                {isLoadingTags && <Loading size={75} />}
+                {!isLoadingTags && tags && tags.map((tag: any) => <TagLabel key={tag.tag_id} color={tag.color} name={tag.name} />)}
                 </div>
                 <Button
                 type="submit"
