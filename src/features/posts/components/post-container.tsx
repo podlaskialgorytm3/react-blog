@@ -3,12 +3,14 @@ import { PostCard } from "./post-card"
 import { Loading } from "../../../shared/components/loading"
 import Swal from "sweetalert2"
 import { useFetchPosts } from "../api/use-fetch-posts"
+import { useFetchPostCount } from "../api/use-fetch-post-count"
 import Pagination from "@mui/material/Pagination"
 import { useState } from "react"
 
 export const PostContainer = () => {
     const [ currentPage, setCurrentPage ] = useState<number>(1);
     const { data, isLoading, isError, error, refetch } = useFetchPosts(currentPage)
+    const { data: postCount } = useFetchPostCount()
 
     let pageConut = 0;
 
@@ -28,11 +30,13 @@ export const PostContainer = () => {
             confirmButtonText: "Ok"
         })
     }
-    if(!isLoading && data.length > 0){
-        pageConut = 3;
+    if(postCount){
+        console.log(postCount)
+        pageConut = Math.ceil(postCount / 4)
     }
 
     const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+        event.preventDefault()
         setCurrentPage(page)
         refetch()
     }
@@ -41,7 +45,7 @@ export const PostContainer = () => {
         <div className="w-[1200px] flex flex-wrap justify-center">
             {isLoading && <Loading  size={100}/>}
             {data && data.map((post: PostResponse) => <PostCard key={post.post_id} post={post} />)}
-            {data && <Pagination 
+            {!isLoading && <Pagination 
                 count={pageConut} 
                 page={currentPage}
                 onChange={(event: React.ChangeEvent<unknown>, page: number) => handlePageChange(event, page)}
