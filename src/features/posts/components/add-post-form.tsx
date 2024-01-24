@@ -34,7 +34,6 @@ export const AddPostForm = () => {
         }
     }  
     
-    
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -106,9 +105,10 @@ export const AddPostForm = () => {
                         onChange={handleImageChange}
                     />
                 </div>
-                <div className='flex flex-wrap justify-center items-center'>
+                <div className='w-[1000px] flex flex-wrap'>
                 {isLoadingTags && <Loading size={75} />}
-                {!isLoadingTags && tags && tags.map((tag: any) => <TagLabel key={tag.tag_id} color={tag.color} name={tag.name} />)}
+                {!isLoadingTags && tags && tags.map((tag: any) => 
+                <TagLabel key={tag.tag_id} color={tag.color} name={tag.name} />)}
                 </div>
                 <Button
                 type="submit"
