@@ -8,7 +8,7 @@ import { useState } from "react"
 
 export const PostContainer = () => {
     const [ currentPage, setCurrentPage ] = useState<number>(1);
-    const { data, isLoading, isError, error } = useFetchPosts()
+    const { data, isLoading, isError, error, refetch } = useFetchPosts(currentPage)
 
     let pageConut = 0;
 
@@ -29,7 +29,12 @@ export const PostContainer = () => {
         })
     }
     if(!isLoading && data.length > 0){
-        pageConut = Math.ceil(data.length / 4);
+        pageConut = 3;
+    }
+
+    const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+        setCurrentPage(page)
+        refetch()
     }
 
     return (
@@ -39,7 +44,7 @@ export const PostContainer = () => {
             {data && <Pagination 
                 count={pageConut} 
                 page={currentPage}
-                onChange={(event: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
+                onChange={(event: React.ChangeEvent<unknown>, page: number) => handlePageChange(event, page)}
                 sx={{
                 display: "flex",
                 justifyContent: "center",
