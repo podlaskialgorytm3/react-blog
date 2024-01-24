@@ -15,7 +15,7 @@ import Select from '@mui/material/Select';
 export const PostContainer = () => {
     const [ currentPage, setCurrentPage ] = useState<number>(1);
     const [ postCountOnPage, setPostCountOnPage ] = useState<number>(4);
-    const { data, isLoading, isError, error, refetch } = useFetchPosts(currentPage)
+    const { data, isLoading, isError, error, refetch } = useFetchPosts(currentPage, postCountOnPage)
     const { data: postCount } = useFetchPostCount()
 
     let pageConut = 0;
@@ -48,7 +48,8 @@ export const PostContainer = () => {
 
     const handlePostCountChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setPostCountOnPage(event.target.value as number);
-        console.log(event.target.value)
+        setCurrentPage(1)
+        refetch()
     }
 
     return (
