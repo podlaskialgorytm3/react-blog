@@ -8,7 +8,7 @@ import { useFetchTags } from '../../../api/use-fetch-tags';
 import { TagLabel } from '../../../shared/components/interactive-tag';
 import { Loading } from '../../../shared/components/loading';
 import { useAddPostForm } from '../hooks/use-add-post-form';
-import { useAddTagPost } from '../../../shared/hooks/use-add-tag-post';
+import { useAddTagPost } from '../hooks/use-add-tag-post';
 
 export const AddPostForm = () => {
     const { data: tags, isLoading: isLoadingTags } = useFetchTags();

@@ -6,11 +6,12 @@ import { Loading } from "../../../shared/components/loading";
 import { TagLabel } from "../../../shared/components/interactive-tag";
 import { useFetchTags } from "../../../api/use-fetch-tags";
 import { useEditPostCard } from "../hooks/use-edit-post-card";
+import { useAddTagPost } from "../hooks/use-add-tag-post";
 
 export const EditPostCard = () => {
     const { data: tags, isLoading: isLoadingTags } = useFetchTags();
-
-    const { handleSubmit, handleContentChange, handleImageChange , post, isLoadingPost, error , tagsId, handleTagClick } = useEditPostCard()
+    const { tagsId, handleTagClick } = useAddTagPost()
+    const { handleSubmit, handleContentChange, handleImageChange , post, isLoadingPost, error} = useEditPostCard(tagsId)
 
     return(
         <div className="flex flex-col items-center">

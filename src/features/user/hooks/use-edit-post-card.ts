@@ -7,17 +7,15 @@ import { PostContent } from "../../../shared/types/post-content";
 import { useUpdatePost } from "../api/use-update-post";
 import { useAddTagToPost } from "../../../api/use-add-tag-to-post";
 import { useDeleteTagPost } from "../api/use-delete-tag-post";
-import { useFetchTagPostId } from "../api/use-fetch-tag-post-id";
 import { useParams } from "react-router-dom";
 import { useFetchPost } from "../../../api/use-fetch-post";
 
 import { useEffect, useState } from "react";
 
-export const useEditPostCard = () => {
+export const useEditPostCard = (tagsId: number[]) => {
     const [content, setContent] = useState<string>('');
     const [image, setImage] = useState<any>(null);
     const [error, setError] = useState<PostContent>(DEFAULT_POST_ERRORS);
-    const [tagsId, setTagsId] = useState<number[]>([]);
 
     const {id} = useParams<{id: string | undefined}>()
 
@@ -25,7 +23,6 @@ export const useEditPostCard = () => {
     const {mutate: updatePost} = useUpdatePost();
     const {mutate: addTagToPost} = useAddTagToPost();
     const {mutate: deleteTagPost} = useDeleteTagPost();
-    const { data: postTagIds } = useFetchTagPostId(id || "");
 
 
     const handleContentChange = (e: React.FormEvent<HTMLFormElement> | any) => setContent(e.target.getContent());
@@ -41,13 +38,6 @@ export const useEditPostCard = () => {
         }
     }  
 
-    const handleTagClick = (tagId: number) => {
-        if(tagsId.includes(tagId)){
-            setTagsId(tagsId.filter((id) => id !== tagId))
-        }else{
-            setTagsId([...tagsId, tagId])
-        }
-    }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -83,16 +73,10 @@ export const useEditPostCard = () => {
     }
 
     useEffect(() => {
-        if(postTagIds){
-            setTagsId(postTagIds.tag_ids)
-        }
-    },[postTagIds])
-
-    useEffect(() => {
         if(post){
             setContent(post.description)
         }
     },[post])
 
-    return { handleSubmit, handleContentChange, handleImageChange , post, isLoadingPost, error , tagsId , handleTagClick}
+    return { handleSubmit, handleContentChange, handleImageChange , post, isLoadingPost, error}
 }
