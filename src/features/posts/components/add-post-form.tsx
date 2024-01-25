@@ -16,6 +16,7 @@ import { DEFAULT_POST_ERRORS } from '../../../shared/constants/post-content';
 import { useFetchTags } from '../../../api/use-fetch-tags';
 import { TagLabel } from './tag';
 import { Loading } from '../../../shared/components/loading';
+import { useAddTagToPost } from '../api/use-add-tag-to-post';
 
 export const AddPostForm = () => {
     const [content, setContent] = useState<string>('');
@@ -26,6 +27,7 @@ export const AddPostForm = () => {
     const { userData } = useAuth();
     const { mutate } = useCreatePost()
     const { data: tags, isLoading: isLoadingTags } = useFetchTags();
+    const { mutate: mutateTags } = useAddTagToPost();
 
     const handleContentChange = (e: React.FormEvent<HTMLFormElement> | any) => setContent(e.target.getContent());
     const randomID = generateID(1000000000);
@@ -59,6 +61,7 @@ export const AddPostForm = () => {
             setError(DEFAULT_POST_ERRORS);
             uploadImage(image,randomID);
             mutate({...postContentCorrectData, postId: randomID})
+            tagsId.forEach((tagId) => mutateTags({postId: randomID, tagId: tagId}))
         }
         catch(errorInfo: any){
             const validationError = fromZodError(errorInfo);
