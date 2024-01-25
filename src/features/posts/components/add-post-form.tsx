@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import { ApiKeyTinyMMC } from '../../../shared/config/confidential-data';
 import { EDITOR_INIT } from '../../../shared/constants/editor-props';
 import { useFetchTags } from '../../../api/use-fetch-tags';
-import { TagLabel } from './tag';
+import { TagLabel } from '../../../shared/components/interactive-tag';
 import { Loading } from '../../../shared/components/loading';
 import { useAddPostForm } from '../hooks/useAddPostForm';
 import { useAddTagToPostForm } from '../hooks/useAddTagToPostForm';

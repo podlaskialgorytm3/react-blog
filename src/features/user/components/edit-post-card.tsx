@@ -13,6 +13,9 @@ import { postContentEditSchema } from "../../../shared/utils/validate-post";
 import { fromZodError } from "zod-validation-error";
 import { useUpdatePost } from "../api/use-update-post";
 import { EditPostContent } from "../types/edit-post-content";
+import { TagLabel } from "../../../shared/components/interactive-tag";
+import { useFetchTags } from "../../../api/use-fetch-tags";
+import { useFetchTagPostId } from "../api/use-fetch-tag-post-id";
 
 export const EditPostCard = () => {
     const [content, setContent] = useState<string>('');
@@ -20,8 +23,25 @@ export const EditPostCard = () => {
     const [error, setError] = useState<PostContent>(DEFAULT_POST_ERRORS);
     const {id} = useParams<{id: string | undefined}>()
     const {data, isLoading} = useFetchPost(id || "")
+    const [tagsId, setTagsId] = useState<number[]>([]);
+
+    const { data: ids } = useFetchTagPostId(id || "");
+
+    if(ids){
+        console.log(ids)
+    }
 
     const {mutate,isPending} = useUpdatePost();
+
+    const { data: tags, isLoading: isLoadingTags } = useFetchTags();
+
+    const handleTagClick = (tagId: number) => {
+        if(tagsId.includes(tagId)){
+            setTagsId(tagsId.filter((id) => id !== tagId))
+        }else{
+            setTagsId([...tagsId, tagId])
+        }
+    }
     
     const handleContentChange = (e: React.FormEvent<HTMLFormElement> | any) => setContent(e.target.getContent());
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -115,6 +135,18 @@ export const EditPostCard = () => {
                         inputProps={{ accept: 'image/*' }} 
                         onChange={handleImageChange}
                     />
+                </div>
+                <div className='w-[1000px] flex flex-wrap'>
+                {isLoadingTags && <Loading size={75} />}
+                {!isLoadingTags && tags && tags.map((tag: any) => 
+                <TagLabel 
+                    key={tag.tag_id} 
+                    color={tag.color} 
+                    name={tag.name}
+                    id={tag.tag_id}
+                    handleTagClick={handleTagClick}
+                    tagsId={tagsId}
+                    />)}
                 </div>
                 <Button
                 type="submit"

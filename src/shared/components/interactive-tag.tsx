@@ -1,4 +1,4 @@
-import { TagContent } from "../types/tag-content"
+import { TagContent } from "../../features/posts/types/tag-content"
 
 export const TagLabel = ({name, color,id,handleTagClick,tagsId} : TagContent)  => {
     let tagColor = ""
