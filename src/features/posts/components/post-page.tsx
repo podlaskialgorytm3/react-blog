@@ -1,7 +1,7 @@
 import { PostResponse } from "../../../shared/types/post-response"
 import { UserLabel } from "./user-label"
 import { TagLabel } from "../../../shared/components/tag";
-import { useFetchTagToPost } from "../api/use-fetch-tag-to-post";
+import { useFetchTagToPost } from "../../../api/use-fetch-tag-to-post";
 
 export const PostPage = ({post}: {post: PostResponse}) => {
     const {data: tags} = useFetchTagToPost(post.post_id)
