@@ -7,7 +7,7 @@ import { postContentSchema } from '../../../shared/utils/validate-post';
 import { uploadImage } from '../../../api/upload-post-image';
 import { useCreatePost } from '../api/use-create-post';
 import { fromZodError } from 'zod-validation-error';
-import { useAddTagToPost } from '../api/use-add-tag-to-post';
+import { useAddTagToPost } from '../../../api/use-add-tag-to-post';
 
 
 export const useAddPostForm = (tagsId: number[]) => {
