@@ -21,6 +21,8 @@ export const AddPostForm = () => {
     const [content, setContent] = useState<string>('');
     const [error, setError] = useState<PostContent>(DEFAULT_POST_ERRORS);
     const [image, setImage] = useState<any>(null);
+    const [tagsId, setTagsId] = useState<number[]>([]);
+
     const { userData } = useAuth();
     const { mutate } = useCreatePost()
     const { data: tags, isLoading: isLoadingTags } = useFetchTags();
@@ -33,6 +35,14 @@ export const AddPostForm = () => {
             setImage(e.target.files[0])
         }
     }  
+
+    const handleTagClick = (tagId: number) => {
+        if(tagsId.includes(tagId)){
+            setTagsId(tagsId.filter((id) => id !== tagId))
+        }else{
+            setTagsId([...tagsId, tagId])
+        }
+    }
     
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -108,7 +118,14 @@ export const AddPostForm = () => {
                 <div className='w-[1000px] flex flex-wrap'>
                 {isLoadingTags && <Loading size={75} />}
                 {!isLoadingTags && tags && tags.map((tag: any) => 
-                <TagLabel key={tag.tag_id} color={tag.color} name={tag.name} />)}
+                <TagLabel 
+                    key={tag.tag_id} 
+                    color={tag.color} 
+                    name={tag.name}
+                    id={tag.tag_id}
+                    handleTagClick={handleTagClick}
+                    tagsId={tagsId}
+                    />)}
                 </div>
                 <Button
                 type="submit"
