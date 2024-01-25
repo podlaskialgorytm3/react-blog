@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useAddTagToPostForm = () => {
+export const useAddTagPost = () => {
     const [tagsId, setTagsId] = useState<number[]>([]);
 
     const handleTagClick = (tagId: number) => {

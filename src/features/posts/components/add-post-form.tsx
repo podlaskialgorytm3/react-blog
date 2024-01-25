@@ -7,12 +7,12 @@ import { EDITOR_INIT } from '../../../shared/constants/editor-props';
 import { useFetchTags } from '../../../api/use-fetch-tags';
 import { TagLabel } from '../../../shared/components/interactive-tag';
 import { Loading } from '../../../shared/components/loading';
-import { useAddPostForm } from '../hooks/useAddPostForm';
-import { useAddTagToPostForm } from '../hooks/useAddTagToPostForm';
+import { useAddPostForm } from '../hooks/use-add-post-form';
+import { useAddTagPost } from '../../../shared/hooks/use-add-tag-post';
 
 export const AddPostForm = () => {
     const { data: tags, isLoading: isLoadingTags } = useFetchTags();
-    const { handleTagClick, tagsId } = useAddTagToPostForm();
+    const { handleTagClick, tagsId } = useAddTagPost();
     const {handleSubmit, handleContentChange, handleImageChange , error} = useAddPostForm(tagsId);
     
     return(

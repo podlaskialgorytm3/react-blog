@@ -5,7 +5,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import { Loading } from "../../../shared/components/loading";
 import { TagLabel } from "../../../shared/components/interactive-tag";
 import { useFetchTags } from "../../../api/use-fetch-tags";
-import { useEditPostCard } from "../hooks/useEditPostCard";
+import { useEditPostCard } from "../hooks/use-edit-post-card";
 
 export const EditPostCard = () => {
     const { data: tags, isLoading: isLoadingTags } = useFetchTags();
