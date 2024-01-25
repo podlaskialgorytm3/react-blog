@@ -14,7 +14,7 @@ import { EDITOR_INIT } from '../../../shared/constants/editor-props';
 import { uploadImage } from '../../../api/upload-post-image';
 import { DEFAULT_POST_ERRORS } from '../../../shared/constants/post-content';
 import { useFetchTags } from '../../../api/use-fetch-tags';
-import { TagLabel } from '../../../shared/components/tag';
+import { TagLabel } from './tag';
 import { Loading } from '../../../shared/components/loading';
 
 export const AddPostForm = () => {
