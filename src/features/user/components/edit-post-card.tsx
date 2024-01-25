@@ -17,6 +17,9 @@ import { TagLabel } from "../../../shared/components/interactive-tag";
 import { useFetchTags } from "../../../api/use-fetch-tags";
 import { useFetchTagPostId } from "../api/use-fetch-tag-post-id";
 
+import { useAddTagToPost } from "../../../api/use-add-tag-to-post";
+import { useDeleteTagPost } from "../api/use-delete-tag-post";
+
 export const EditPostCard = () => {
     const [content, setContent] = useState<string>('');
     const [image, setImage] = useState<any>(null);
@@ -25,11 +28,16 @@ export const EditPostCard = () => {
     const {data, isLoading} = useFetchPost(id || "")
     const [tagsId, setTagsId] = useState<number[]>([]);
 
-    const { data: ids } = useFetchTagPostId(id || "");
+    const { data: postTagIds } = useFetchTagPostId(id || "");
 
-    if(ids){
-        console.log(ids)
-    }
+    const { mutate : addTagToPost} = useAddTagToPost();
+    const { mutate : deleteTagPost } = useDeleteTagPost();
+
+    useEffect(() => {
+        if(postTagIds){
+            setTagsId(postTagIds.tag_ids)
+        }
+    },[postTagIds])
 
     const {mutate,isPending} = useUpdatePost();
 
@@ -49,6 +57,11 @@ export const EditPostCard = () => {
             setImage(e.target.files[0])
         }
     }  
+
+    const updateTags = ({ postId, tagsId }: { postId: number, tagsId: number[] }) => {
+        deleteTagPost(postId);
+        setTimeout(() => {tagsId.forEach(tagId => addTagToPost({ postId, tagId }));}, 1000) 
+    };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -70,6 +83,7 @@ export const EditPostCard = () => {
                 uploadImage(image,data.post_id);
             }
             mutate(sendData)
+            updateTags({postId: data.post_id, tagsId: tagsId});            
         }
         catch(errorInfo: any){
             const validationError = fromZodError(errorInfo);

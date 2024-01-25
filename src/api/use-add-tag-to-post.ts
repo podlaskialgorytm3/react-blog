@@ -11,6 +11,8 @@ const addTagToPost = async ({postId, tagId}: PostTag) => {
         }
     })
 
+    console.log("add tag to post response", response)
+
     if(!response.ok){
         throw new Error('Something went wrong')
     }
