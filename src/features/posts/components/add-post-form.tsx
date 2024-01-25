@@ -8,10 +8,12 @@ import { useFetchTags } from '../../../api/use-fetch-tags';
 import { TagLabel } from './tag';
 import { Loading } from '../../../shared/components/loading';
 import { useAddPostForm } from '../hooks/useAddPostForm';
+import { useAddTagToPostForm } from '../hooks/useAddTagToPostForm';
 
 export const AddPostForm = () => {
     const { data: tags, isLoading: isLoadingTags } = useFetchTags();
-    const {handleSubmit, handleContentChange, handleImageChange , handleAddTag , tagsId, error} = useAddPostForm()
+    const { handleTagClick, tagsId } = useAddTagToPostForm();
+    const {handleSubmit, handleContentChange, handleImageChange , error} = useAddPostForm(tagsId);
     
     return(
         <div>
@@ -65,7 +67,7 @@ export const AddPostForm = () => {
                     color={tag.color} 
                     name={tag.name}
                     id={tag.tag_id}
-                    handleTagClick={handleAddTag}
+                    handleTagClick={handleTagClick}
                     tagsId={tagsId}
                     />)}
                 </div>

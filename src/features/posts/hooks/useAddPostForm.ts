@@ -7,11 +7,10 @@ import { postContentSchema } from '../../../shared/utils/validate-post';
 import { uploadImage } from '../../../api/upload-post-image';
 import { useCreatePost } from '../api/use-create-post';
 import { fromZodError } from 'zod-validation-error';
-import { useAddTagToPostForm } from './useAddTagToPostForm';
 import { useAddTagToPost } from '../api/use-add-tag-to-post';
 
 
-export const useAddPostForm = () => {
+export const useAddPostForm = (tagsId: number[]) => {
     const [content, setContent] = useState<string>('');
     const [image, setImage] = useState<any>(null);
     const [error, setError] = useState<PostContent>(DEFAULT_POST_ERRORS);
@@ -19,7 +18,6 @@ export const useAddPostForm = () => {
     const { userData } = useAuth();
     const { mutate } = useCreatePost()
     const { mutate: mutateTags } = useAddTagToPost()
-    const { handleAddTag, tagsId } = useAddTagToPostForm();
 
 
     const randomID = generateID(1000000000);
@@ -59,5 +57,5 @@ export const useAddPostForm = () => {
         }
     }
 
-    return {handleSubmit, handleContentChange, handleImageChange , handleAddTag , tagsId, error}
+    return {handleSubmit, handleContentChange, handleImageChange, error}
 }
