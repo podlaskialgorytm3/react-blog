@@ -1,10 +1,10 @@
 import { useMutation  } from "@tanstack/react-query";
 import { queryClient } from "../../../api/query-client";
 
-const deleteTag = async (id: number) =>{
+const deleteTag = async (tag_id: number) =>{
     const response = await fetch(`http://localhost:3000/delete-tag`,{
         method: 'DELETE',
-        body: JSON.stringify({id}),
+        body: JSON.stringify({tag_id}),
         headers: {
             'Content-Type': 'application/json'
         }
