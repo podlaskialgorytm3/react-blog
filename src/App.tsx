@@ -37,7 +37,7 @@ const route = createBrowserRouter([
         {path: '/user/settings',element: <Settings/>},
         {path: '/user/post-settings',element: <PostSettings/>},
         {path: '/user/post-settings/edit/:id',element: <EditPost />},
-        {path: '/user/tag-settings',element: <TagSettings />}
+        {path: '/user/post-settings/tag-settings',element: <TagSettings />}
       ]},
       {path: '/post/:id',element: <Post />},
       {path: '/add-post',element: <AddPost />},

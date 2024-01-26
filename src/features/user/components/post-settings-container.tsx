@@ -6,6 +6,7 @@ import Swal from "sweetalert2"
 import { useFetchUserPost } from "../api/use-fetch-user-post"
 import { useDeletePost } from "../api/use-delete-post"
 import { useState } from "react"
+import { Link } from "react-router-dom"
 
 export const PostSettingsContainer = () => {
     const { userData } = useAuth();
@@ -43,6 +44,7 @@ export const PostSettingsContainer = () => {
     return(
         <div className={`w-[500px] h-[auto] flex flex-col items-center relative`}>
                 <h1 className="text-[36px] mb-5">Post Settings 🔧🗂️</h1>
+                <p className="text-lg">Go to <Link to="/user/post-settings/tag-settings" className="text-main font-bold">Tag Settings</Link></p>
                 {isLoading && <Loading size={100} />}
                 {updatedData  && 
                 updatedData .map((post: PostResponse) => (<PostSettingsCard key={post.post_id} post={post} handleDeletePost={handleDeletePost}/>))}
