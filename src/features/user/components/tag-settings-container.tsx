@@ -4,10 +4,20 @@ import { Loading } from "../../../shared/components/loading"
 import { useFetchTagUser } from "../api/use-fetch-tag-user"
 import { TagLabel } from "../../../shared/components/tag"
 import { TagResponse } from "../types/tag-response"
+import Swal from "sweetalert2"
 
 export const TagSettingsContainer = () => {
     const { userData } = useAuth();
     const { data, isLoading, isError, error } = useFetchTagUser(userData.user_id)
+
+    if(isError){
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: error.message,
+            confirmButtonText: "Ok"
+        })
+    }
 
     return(
         <div className={`w-[500px] h-[auto] flex flex-col items-center relative`}>
