@@ -14,7 +14,7 @@ const fetchTagPostId = async (post_id: string) => {
 
 export const useFetchTagPostId = (post_id: string) => (
     useQuery({
-        queryKey: ["post-tag-id", post_id],
+        queryKey: ["tags", post_id],
         queryFn: () => fetchTagPostId(post_id),
         enabled: !!post_id
     })
