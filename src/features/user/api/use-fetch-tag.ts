@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-const fetchTag = async (tag_id: number) => {
+const fetchTag = async (tag_id: string) => {
     const response = await fetch(`http://localhost:3000/fetch-tag/${tag_id}`);
 
     if (!response.ok) {
@@ -9,10 +9,10 @@ const fetchTag = async (tag_id: number) => {
 
     const data = await response.json();
 
-    return data;
+    return data[0];
 }
 
-export const useFetchTag = (tag_id: number) => (
+export const useFetchTag = (tag_id: string) => (
     useQuery({
         queryKey: ["tag", tag_id],
         queryFn: () => fetchTag(tag_id),
