@@ -25,7 +25,7 @@ export const AddPostForm = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    width: '1000px',
+                    width: '1200px',
                     "@media (max-width: 768px)": { width: '350px' }
                 }}
                 noValidate
