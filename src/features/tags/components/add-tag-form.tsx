@@ -2,62 +2,12 @@ import { Box } from "@mui/material";
 import TextField from '@mui/material/TextField';
 import { MuiColorInput } from 'mui-color-input';
 import { Button } from "@mui/material";
-import { useState } from "react";
-import { Tag } from "../types/tag"
-import { tagContentSchema } from "../utils/validate";
-import { fromZodError } from "zod-validation-error";
-import { useCreateTag } from "../api/use-create-tag";
 import { Loading } from "../../../shared/components/loading";
-import Swal from 'sweetalert2';
 import { TagLabel } from "../../../shared/components/tag";
-import { useAuth } from '../../../shared/hooks/useAuth';
+import { useAddTagForm } from "../hooks/use-add-tag-from";
 
 export const AddTagForm = () => {
-    const [color, setColor] = useState<string>('#000000');
-    const [name, setName] = useState<string>('');
-    const [error, setError] = useState<Tag>({name: '', color: '',userId: 0});
-    const { userData } = useAuth();
-
-    const { mutate, isPending,isError,error: errorTag } = useCreateTag();
-
-    const handleChangeColor = (newColor: string) => {
-        setColor(newColor);
-    }
-
-    const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {setName(e.target.value)}
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const tag:Tag = {
-            name: e.currentTarget['name-tag'].value,
-            color: color,
-            userId: userData.user_id
-        }
-        setError({name: '', color: '',userId: 0});
-        try{
-            const tagCorrectData: Tag = tagContentSchema.parse(tag);
-            setError({name: '', color: '',userId: 0});
-            mutate(tagCorrectData)
-        }
-        catch(errorInfo: any){
-            const validationError = fromZodError(errorInfo);
-            validationError.details.forEach((item: any) => {
-               setError((prevState) => ({
-                 ...prevState,
-                [item.path[0]]: item.message,
-                }));
-            })
-        }
-    }
-
-    if(isError){
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: `${errorTag?.message}`,
-            confirmButtonText: 'Ok',
-          })
-    }
+    const { name, color, error, isPending, handleChangeColor, handleChangeName, handleSubmit} = useAddTagForm();
 
     return (
         <div className="flex flex-col items-center">
