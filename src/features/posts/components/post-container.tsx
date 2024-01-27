@@ -53,7 +53,7 @@ export const PostContainer = () => {
     }
 
     return (
-        <div className="w-[1200px] flex flex-col items-center">
+        <div className="md:w-[1200px] w-[350px] flex flex-col items-center">
             <div className="w-full flex justify-end">
             {data && (
                 <Box sx={{ minWidth: 150, marginTop: "50px", marginRight: "100px" }}>
@@ -75,7 +75,7 @@ export const PostContainer = () => {
               </Box>
             )}
             </div>
-            <div className="w-[1200px] flex flex-wrap justify-center">
+            <div className="md:w-[1200px] w-[350px] flex flex-wrap justify-center">
             {isLoading && <Loading  size={100}/>}
             {data && data.map((post: PostResponse) => <PostCard key={post.post_id} post={post} />)}
             </div>
