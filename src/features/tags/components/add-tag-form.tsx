@@ -24,6 +24,8 @@ export const AddTagForm = () => {
         setColor(newColor);
     }
 
+    const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {setName(e.target.value)}
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const tag:Tag = {
@@ -78,7 +80,7 @@ export const AddTagForm = () => {
                     sx={{width: '100%'}}
                     error={error.name ? true : false}
                     helperText={error.name}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={handleChangeName}
                 />
                 <MuiColorInput value={color} onChange={handleChangeColor} />
                 <p className="text-[red]">{error.color}</p>
