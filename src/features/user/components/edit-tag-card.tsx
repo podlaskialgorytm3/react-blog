@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import { useUpdateTag } from "../api/use-update-tag";
 import { fromZodError } from "zod-validation-error";
 import { tagContentSchema } from "../utils/validate-tag";
+import { useNavigate } from "react-router-dom";
 
 export const EditTagCard = () => {
     const [color, setColor] = useState<string>('#000000');
@@ -19,6 +20,7 @@ export const EditTagCard = () => {
     const [error, setError] = useState<TagDispatch>({name: '', color: '',tagId: 0});
 
     const { id } = useParams<{id: string}>();
+    const navigate = useNavigate();
 
     const { data, isLoading, isError, error: errorTag } = useFetchTag(id || '');
     const { mutate } = useUpdateTag();
@@ -39,6 +41,9 @@ export const EditTagCard = () => {
             const tagCorrectData: TagDispatch = tagContentSchema.parse(tag);
             setError({name: '', color: '',tagId: 0});
             mutate(tagCorrectData)
+            setTimeout(() => {
+                navigate('/user/post-settings/tag-settings');
+            }, 1000);
         }
         catch(errorInfo: any){
             const validationError = fromZodError(errorInfo);
