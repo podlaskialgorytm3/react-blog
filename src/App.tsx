@@ -18,6 +18,7 @@ import { Post } from "./pages/user/post";
 import { EditPost } from "./pages/user/edit-post";
 import { AddTag } from "./pages/user/add-tag";
 import { TagSettings } from "./pages/user/tag-settings.tsx";
+import { EditTag } from "./pages/user/edit-tag.tsx";
 
 import { queryClient } from "./features/auth/utils/fetch-data"
 
@@ -37,7 +38,8 @@ const route = createBrowserRouter([
         {path: '/user/settings',element: <Settings/>},
         {path: '/user/post-settings',element: <PostSettings/>},
         {path: '/user/post-settings/edit/:id',element: <EditPost />},
-        {path: '/user/post-settings/tag-settings',element: <TagSettings />}
+        {path: '/user/post-settings/tag-settings',element: <TagSettings />},
+        {path: '/user/post-settings/tag-settings/edit/:id',element: <EditTag />}
       ]},
       {path: '/post/:id',element: <Post />},
       {path: '/add-post',element: <AddPost />},
