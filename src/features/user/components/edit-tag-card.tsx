@@ -9,6 +9,9 @@ import { useFetchTag } from "../api/use-fetch-tag";
 import { useParams } from "react-router-dom";
 import { Loading } from "../../../shared/components/loading";
 import Swal from 'sweetalert2';
+import { useUpdateTag } from "../api/use-update-tag";
+import { fromZodError } from "zod-validation-error";
+import { tagContentSchema } from "../utils/validate-tag";
 
 export const EditTagCard = () => {
     const [color, setColor] = useState<string>('#000000');
@@ -18,12 +21,34 @@ export const EditTagCard = () => {
     const { id } = useParams<{id: string}>();
 
     const { data, isLoading, isError, error: errorTag } = useFetchTag(id || '');
+    const { mutate } = useUpdateTag();
+
+    const handleChangeColor = (newColor: string) => {
+        setColor(newColor);
+    }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-    }
-    const handleChangeColor = (newColor: string) => {
-        setColor(newColor);
+        const tag: TagDispatch = {
+            name: e.currentTarget['name-tag'].value,
+            color: color,
+            tagId: parseInt(id ?? '')
+        }
+        setError({name: '', color: '',tagId: 0});
+        try{
+            const tagCorrectData: TagDispatch = tagContentSchema.parse(tag);
+            setError({name: '', color: '',tagId: 0});
+            mutate(tagCorrectData)
+        }
+        catch(errorInfo: any){
+            const validationError = fromZodError(errorInfo);
+            validationError.details.forEach((item: any) => {
+               setError((prevState) => ({
+                 ...prevState,
+                [item.path[0]]: item.message,
+                }));
+            })
+        }
     }
 
 
@@ -67,8 +92,12 @@ export const EditTagCard = () => {
                     name="name-tag" 
                     sx={{width: '100%'}}
                     defaultValue={data.name}
+                    error={error.name ? true : false}
+                    helperText={error.name}
+                    onChange={(e) => setName(e.target.value)}
                 />
                 <MuiColorInput value={color} onChange={handleChangeColor} />
+                <p className="text-[red]">{error.color}</p>
                 <Button
                 type="submit"
                 variant="contained"
