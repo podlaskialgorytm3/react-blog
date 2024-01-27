@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 
 export const PostSettingsCard = ({post,handleDeletePost} : PostSettings) => {
     return(
-        <div className={`w-[600px] h-[100px] flex items-center justify-between flex-row m-5`}>
+        <div className={`md:w-[600px] md:h-[100px] w-[300px] flex items-center justify-between flex-row m-5`}>
             <div className="flex items-center">
                 <img src={post.image ? post.image : postImage} alt={post.title} className="w-[100px] h-[100px] object-cover" />
-                <h1 className="text-[20px] ml-5 w-[300px]">{post.title}</h1>
+                <h1 className="text-[16px] md:text-[20px] ml-5 w-[250px]">{post.title}</h1>
             </div>
             <div>
                 <Link to={`/user/post-settings/edit/${post.post_id}`}><EditIcon sx={{width: '45px', height: "45px"}}/></Link>

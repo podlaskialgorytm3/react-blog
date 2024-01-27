@@ -6,7 +6,7 @@ import { TagResponse } from "../types/tag-response";
 
 export const TagSettingsCard = ({ tag, handleDelete }: { tag: TagResponse, handleDelete: (tagId: number) => void }) => {
     return(
-        <div className="flex w-[400px] justify-between items-center">
+        <div className="flex md:w-[400px] justify-between items-center">
             <TagLabel key={tag.tag_id} color={tag.color} name={tag.name} />
             <div>
                 <Link to={`/user/post-settings/tag-settings/edit/${tag.tag_id}`}><EditIcon sx={{width: '45px', height: "45px"}}/></Link>
