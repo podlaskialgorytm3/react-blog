@@ -12,6 +12,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
+const numberPostOnPage: number[] = [2,4,6,8,10]
+
 export const PostContainer = () => {
     const [ currentPage, setCurrentPage ] = useState<number>(1);
     const [ postCountOnPage, setPostCountOnPage ] = useState<number>(4);
@@ -46,7 +48,7 @@ export const PostContainer = () => {
         refetch()
     }
 
-    const handlePostCountChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const handlePostCountChange = (event: React.ChangeEvent<{ value: number }>) => {
         setPostCountOnPage(event.target.value as number);
         setCurrentPage(1)
         refetch()
@@ -66,7 +68,7 @@ export const PostContainer = () => {
                     onChange={(event: any) => handlePostCountChange(event)}
                   >
                     {
-                        [2,4,6,8,10].map((count) => (
+                        numberPostOnPage.map((count) => (
                             <MenuItem value={count} key={count}>{count}</MenuItem>
                         ))
                     }
