@@ -9,6 +9,7 @@ import { TagLabel } from '../../../shared/components/interactive-tag';
 import { Loading } from '../../../shared/components/loading';
 import { useAddPostForm } from '../hooks/use-add-post-form';
 import { useAddTagPost } from '../hooks/use-add-tag-post';
+import { TagResponse } from '../../user/types/tag-response';
 
 export const AddPostForm = () => {
     const { data: tags, isLoading: isLoadingTags } = useFetchTags();
@@ -62,7 +63,7 @@ export const AddPostForm = () => {
                 </div>
                 <div className='md:w-[1000px] w-[350px] flex flex-wrap justify-center'>
                 {isLoadingTags && <Loading size={75} />}
-                {!isLoadingTags && tags && tags.map((tag: any) => 
+                {!isLoadingTags && tags && tags.map((tag: TagResponse) => 
                 <TagLabel 
                     key={tag.tag_id} 
                     color={tag.color} 

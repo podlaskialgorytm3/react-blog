@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 
 const fetchPostCount = async () => {
-    const repsone = await fetch(`http://localhost:3000/full-post-count`);
+    const respsone = await fetch(`http://localhost:3000/full-post-count`);
 
-    if(!repsone.ok) {
-        throw new Error(repsone.statusText);
+    if(!respsone.ok) {
+        throw new Error(respsone.statusText);
     }
 
-    const postCount = await repsone.json();
+    const postCount = await respsone.json();
 
     return postCount.postCount;
 }
