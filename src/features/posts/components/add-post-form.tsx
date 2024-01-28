@@ -1,75 +1,20 @@
-import { useState } from 'react';
-import { useAuth } from '../../../shared/hooks/useAuth';
-import { PostContent } from '../types/post-content';
-import { postContentSchema } from '../utils/validate';
-import { fromZodError } from 'zod-validation-error';
 import { Editor } from '@tinymce/tinymce-react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import { ApiKeyTinyMMC } from '../../../shared/config/confidential-data';
-import { useCreatePost } from '../api/use-create-post';
-import { generateID } from '../utils/generate-id';
-import { EDITOR_INIT } from '../constants/editor-props';
-import { ref, uploadBytes } from "firebase/storage";
-import { imageDatabase } from '../../../shared/config/firebase-image';
-
-const DEFAULT_POST: PostContent = {
-    postId: 0,
-    userId: 0,
-    title: '',
-    content: ''
-}
-
-const DEFAULT_POST_ERRORS: PostContent = DEFAULT_POST;
+import { EDITOR_INIT } from '../../../shared/constants/editor-props';
+import { useFetchTags } from '../../../api/use-fetch-tags';
+import { TagLabel } from '../../../shared/components/interactive-tag';
+import { Loading } from '../../../shared/components/loading';
+import { useAddPostForm } from '../hooks/use-add-post-form';
+import { useAddTagPost } from '../hooks/use-add-tag-post';
+import { TagResponse } from '../../user/types/tag-response';
 
 export const AddPostForm = () => {
-    const [content, setContent] = useState<string>('');
-    const [error, setError] = useState<PostContent>(DEFAULT_POST_ERRORS);
-    const [image, setImage] = useState<any>(null);
-    const { userData } = useAuth();
-    const { mutate } = useCreatePost()
-
-    const handleContentChange = (e: React.FormEvent<HTMLFormElement> | any) => setContent(e.target.getContent());
-    const randomID = generateID(1000000000);
-
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        if (e.target.files) {
-            setImage(e.target.files[0])
-        }
-    }  
-    
-    const uploadImage = (image: any) => {
-        uploadBytes(ref(imageDatabase, `posts/${randomID}`), image).then(() => {
-            window.location.reload();
-        })
-    }
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const postContent: PostContent = {
-            postId: randomID,
-            userId: userData.user_id,
-            title: e.currentTarget['post-title'].value,
-            content: content
-        }
-        setError(DEFAULT_POST_ERRORS);
-        try{
-            const postContentCorrectData = postContentSchema.parse(postContent);
-            setError(DEFAULT_POST_ERRORS);
-            uploadImage(image);
-            mutate({...postContentCorrectData, postId: randomID})
-        }
-        catch(errorInfo: any){
-            const validationError = fromZodError(errorInfo);
-            validationError.details.forEach((item: any) => {
-              setError((prevState) => ({
-                ...prevState,
-                [item.path[0]]: item.message,
-              }));
-            })
-        }
-    }
+    const { data: tags, isLoading: isLoadingTags } = useFetchTags();
+    const { handleTagClick, tagsId } = useAddTagPost();
+    const {handleSubmit, handleContentChange, handleImageChange , error} = useAddPostForm(tagsId);
     
     return(
         <div>
@@ -81,7 +26,8 @@ export const AddPostForm = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    '& > :not(style)': { m: 1, width: '50ch' },
+                    width: '1200px',
+                    "@media (max-width: 768px)": { width: '350px' }
                 }}
                 noValidate
                 autoComplete="off"
@@ -91,7 +37,7 @@ export const AddPostForm = () => {
                     label="Title" 
                     variant="standard" 
                     name="post-title" 
-                    sx={{width: '100%'}}
+                    sx={{width: '50%',margin: '30px', "@media (max-width: 768px)": { width: '70%' }}}
                     error={error.title ? true : false}
                     helperText={error.title}
                 />
@@ -102,26 +48,40 @@ export const AddPostForm = () => {
                     initialValue=""
                 />
                 <p className="text-red-500">{error.content}</p>
-                <div className='bg-main box-border rounded-lg relative'>
-                    <h1 className='absolute top-[20%] left-[40%] font-bold'>Upload Image</h1>
+                <div className='bg-main box-border rounded-lg relative m-10'>
+                    <h1 className='absolute top-[20%] left-[33%] font-bold text-center'>Upload Image</h1>
                     <TextField 
                         id="standard-basic" 
                         label="Image" 
                         variant="standard" 
                         name="post-image" 
-                        sx={{width: '100%', height: '100%', opacity: '0'}}
+                        sx={{width: '100%', height: '100%', opacity: '0', textAlign: 'center', cursor: 'pointer'}}
                         type='file'
                         inputProps={{ accept: 'image/*' }} 
                         onChange={handleImageChange}
                     />
                 </div>
+                <div className='md:w-[1000px] w-[350px] flex flex-wrap justify-center'>
+                {isLoadingTags && <Loading size={75} />}
+                {!isLoadingTags && tags && tags.map((tag: TagResponse) => 
+                <TagLabel 
+                    key={tag.tag_id} 
+                    color={tag.color} 
+                    name={tag.name}
+                    id={tag.tag_id}
+                    handleTagClick={handleTagClick}
+                    tagsId={tagsId}
+                    />)}
+                </div>
                 <Button
                 type="submit"
                 variant="contained"
-                sx={{ mt: 3, mb: 2 , bgcolor: '#41c48b', color: '#fff', width: '300px','&:hover': {
+                sx={{ mt: 3, mb: 2 , bgcolor: '#41c48b', color: '#fff', width: '500px','&:hover': {
                 backgroundColor: '#328a63',
                 opacity: [0.9, 0.8, 0.7],
-                } }}
+                },
+                "@media (max-width: 768px)": { width: '300px' }
+                }}
                 >Create post
                 </Button>
             </Box>

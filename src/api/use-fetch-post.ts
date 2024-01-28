@@ -1,8 +1,9 @@
+import { useQuery } from "@tanstack/react-query";
 import { fetchPostImage } from "./fetch-post-image";
 import { fetchUsername } from "./fetch-username";
 import { fetchUserImage } from "./fetch-user-image";
 
-export const fetchPost = async (post_id: number) => {
+const fetchPost = async (post_id: number) => {
     const response = await fetch(`http://localhost:3000/fetch-post/${post_id}`);
 
     if (!response.ok) {
@@ -22,3 +23,11 @@ export const fetchPost = async (post_id: number) => {
 
     return post;
 };
+
+export const useFetchPost = (id: string) => (
+    useQuery({
+        queryKey: ["post", id],
+        queryFn: () => fetchPost(parseInt(id || ""))
+    })
+
+)

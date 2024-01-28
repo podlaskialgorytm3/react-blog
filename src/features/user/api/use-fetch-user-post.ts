@@ -1,5 +1,25 @@
 import { useQuery } from "@tanstack/react-query"
-import { fetchUserPost } from "../api/fetch-user-post"
+import { fetchPostImage } from "../../../api/fetch-post-image";
+
+const fetchUserPost = async (id: number) => {
+    const response = await fetch(`http://localhost:3000/fetch-user-post/${id}`);
+
+
+    if (!response.ok) {
+        throw new Error(response.statusText);
+    }
+
+    const posts = await response.json();
+
+    const imagePromises = posts.map(async (post: any) => {
+        const image = await fetchPostImage(post.post_id);
+        post.image = image;
+    });
+
+    await Promise.all(imagePromises);
+
+    return posts;
+}
 
 export const useFetchUserPost = (id: number) => (
     useQuery({

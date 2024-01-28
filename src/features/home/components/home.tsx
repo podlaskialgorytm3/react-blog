@@ -18,8 +18,8 @@ export const HomeContainer = ({children}: any) => {
         <>
             <animated.div style={props}>
             {auth && 
-                <div className="flex flex-col items-center justify-center w-full h-full">
-                    <h1 className="text-4xl">Witaj {userData.first_name} {userData.last_name} 👋</h1>
+                <div className="flex flex-col items-center justify-center w-full h-full text-center">
+                    <h1 className="text-3xl md:text-4xl">Witaj {userData.first_name} {userData.last_name} 👋</h1>
                 </div>
             }
             {children}

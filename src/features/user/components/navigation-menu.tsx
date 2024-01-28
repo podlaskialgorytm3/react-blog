@@ -11,7 +11,7 @@ const navlinkStyle = "h-[70px] w-[70px] rounded-[30px] flex justify-center items
 export const NavigationMenu = () => {
 
     return(
-        <div className={`mb-10 w-[500px] h-[100px] flex justify-around`}>
+        <div className={`mb-10 w-[350px] md:w-[500px] h-[100px] flex justify-around`}>
                 <NavLink to="/user/post-settings" style={({isActive}) => ({backgroundColor: isActive ? '#41c48b' : ''})} className={navlinkStyle}>
                     <img src={BlogIcon} alt="Post Settings" className={imgStyle}/>
                 </NavLink>

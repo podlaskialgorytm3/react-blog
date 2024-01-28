@@ -3,7 +3,7 @@ import { queryClient } from '../../../api/query-client';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-import { PostContent } from "../types/post-content"
+import { PostContent } from "../../../shared/types/post-content"
 
 const createPost = async (postData: PostContent) => {
     const response = await fetch('http://localhost:3000/create-post', {
