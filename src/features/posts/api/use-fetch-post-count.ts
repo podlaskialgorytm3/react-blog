@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 const fetchPostCount = async () => {
-    const respsone = await fetch(`http://localhost:3000/full-post-count`);
+    const respsone = await fetch(`http://localhost:3000/posts/count/all`);
 
     if(!respsone.ok) {
         throw new Error(respsone.statusText);

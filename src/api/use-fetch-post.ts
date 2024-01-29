@@ -4,7 +4,7 @@ import { fetchUsername } from "./fetch-username";
 import { fetchUserImage } from "./fetch-user-image";
 
 const fetchPost = async (post_id: number) => {
-    const response = await fetch(`http://localhost:3000/fetch-post/${post_id}`);
+    const response = await fetch(`http://localhost:3000/posts/${post_id}`);
 
     if (!response.ok) {
         throw new Error(response.statusText);

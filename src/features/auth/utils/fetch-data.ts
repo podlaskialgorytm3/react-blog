@@ -47,7 +47,7 @@ export const fetchUsers = async (userData: SignInData) => {
     }
 }
 export const sendMail = async (email: string) => {
-    const response = await fetch('http://localhost:3000/send-email',{
+    const response = await fetch('http://localhost:3000/email',{
         method: 'POST',
         mode: 'cors',
         body: JSON.stringify({email}),
@@ -67,7 +67,7 @@ export const sendMail = async (email: string) => {
     }
 }
 export const sendPassword = async (passwordData: { password: string, resetToken: string | undefined | null}) => {
-    const response = await fetch('http://localhost:3000/send-password', {
+    const response = await fetch('http://localhost:3000/password', {
         method: 'POST',
         mode: 'cors',
         body: JSON.stringify(passwordData),

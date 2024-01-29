@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { EditPostContent } from "../types/edit-post-content";
 
 const updatePost = async (data: EditPostContent) => {
-    const response = await fetch(`http://localhost:3000/update-post`,{
+    const response = await fetch(`http://localhost:3000/posts`,{
         method: 'PUT',
         mode: 'cors',
         body: JSON.stringify(data),
