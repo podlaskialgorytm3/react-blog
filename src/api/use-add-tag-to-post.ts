@@ -3,7 +3,7 @@ import { queryClient } from "./query-client";
 import { PostTag } from "../shared/types/post-tag";
 
 const addTagToPost = async ({postId, tagId}: PostTag) => {
-    const response = await fetch(`http://localhost:3000/add-tag-to-post`,{
+    const response = await fetch(`http://localhost:3000/post/tags`,{
         method: 'POST',
         body: JSON.stringify({postId, tagId}),
         headers: {

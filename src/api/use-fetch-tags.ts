@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 const fetchTags = async () => {
-    const response = await fetch(`http://localhost:3000/fetch-tags`);
+    const response = await fetch(`http://localhost:3000/tags`);
     
     if(!response.ok){
         throw new Error('Something went wrong');

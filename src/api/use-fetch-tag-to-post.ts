@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 const fetchTagToPost = async (postId: number) => {
-    const response = await fetch(`http://localhost:3000/fetch-post-tags/${postId}`);
+    const response = await fetch(`http://localhost:3000/post/tags/${postId}`);
 
     if (!response.ok) {
         throw new Error(response.statusText);

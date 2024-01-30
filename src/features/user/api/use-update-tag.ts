@@ -4,7 +4,7 @@ import { queryClient } from "../../../api/query-client";
 import Swal from "sweetalert2";
 
 const updateTag = async (tag: TagDispatch) => {
-    const response = await fetch(`http://localhost:3000/update-tag`, {
+    const response = await fetch(`http://localhost:3000/tags`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
