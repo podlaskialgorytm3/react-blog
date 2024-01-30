@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import { Menu } from "../../shared/components/menu"
+import { Menu } from "../../shared/components/Menu"
 import { ThemeProvider } from '@mui/material/styles';
 import { Container } from "@mui/material";
 import {CssBaseline} from "@mui/material";
