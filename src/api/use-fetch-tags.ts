@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import { URL } from "../shared/config/confidential-data";
 
 const fetchTags = async () => {
-    const response = await fetch(`http://localhost:3000/fetch-tags`);
+    const response = await fetch(`${URL}/tags`);
     
     if(!response.ok){
         throw new Error('Something went wrong');

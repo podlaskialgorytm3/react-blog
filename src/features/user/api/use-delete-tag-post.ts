@@ -1,8 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../api/query-client";
+import { URL } from "../../../shared/config/confidential-data";
 
 const deleteTagPost = async (post_id: number) => {
-    const response = await fetch(`http://localhost:3000/delete-tag-post/${post_id}`, {
+    const response = await fetch(`${URL}/post/tags/${post_id}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"

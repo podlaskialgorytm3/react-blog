@@ -1,9 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "./query-client";
 import { PostTag } from "../shared/types/post-tag";
+import { URL } from "../shared/config/confidential-data";
 
 const addTagToPost = async ({postId, tagId}: PostTag) => {
-    const response = await fetch(`http://localhost:3000/add-tag-to-post`,{
+    const response = await fetch(`${URL}/post/tags`,{
         method: 'POST',
         body: JSON.stringify({postId, tagId}),
         headers: {

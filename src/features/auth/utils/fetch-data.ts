@@ -1,12 +1,12 @@
 import { QueryClient } from "@tanstack/react-query";
-
+import { URL } from "../../../shared/config/confidential-data";
 import { SignUpData } from "../types/sign-up";
 import { SignInData } from "../types/sing-in";
 
 export const queryClient = new QueryClient();
 
 export const createNewUser = async (userData: SignUpData) => {
-    const response = await fetch('http://localhost:3000/users',{
+    const response = await fetch(`${URL}/users`,{
         method: 'POST',
         mode: 'cors',
         body: JSON.stringify(userData),
@@ -27,7 +27,7 @@ export const createNewUser = async (userData: SignUpData) => {
     return data;
 };
 export const fetchUsers = async (userData: SignInData) => {
-    const response = await fetch('http://localhost:3000/login',{
+    const response = await fetch(`${URL}/login`,{
         method: 'POST',
         mode: 'cors',
         body: JSON.stringify(userData),
@@ -47,7 +47,7 @@ export const fetchUsers = async (userData: SignInData) => {
     }
 }
 export const sendMail = async (email: string) => {
-    const response = await fetch('http://localhost:3000/send-email',{
+    const response = await fetch(`${URL}/email`,{
         method: 'POST',
         mode: 'cors',
         body: JSON.stringify({email}),
@@ -67,7 +67,7 @@ export const sendMail = async (email: string) => {
     }
 }
 export const sendPassword = async (passwordData: { password: string, resetToken: string | undefined | null}) => {
-    const response = await fetch('http://localhost:3000/send-password', {
+    const response = await fetch(`${URL}/password`, {
         method: 'POST',
         mode: 'cors',
         body: JSON.stringify(passwordData),

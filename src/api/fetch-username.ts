@@ -1,5 +1,7 @@
+import { URL } from "../shared/config/confidential-data";
+
 export const fetchUsername = async (userId: number) => {
-    const response = await fetch(`http://localhost:3000/fetch-username/${userId}`)
+    const response = await fetch(`${URL}/username/${userId}`)
     const  username  = await response.json()
     
     if(!response.ok) {

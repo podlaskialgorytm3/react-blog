@@ -2,10 +2,11 @@ import { Tag } from '../types/tag';
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from '../../../api/query-client';
 import Swal from 'sweetalert2';
+import { URL } from '../../../shared/config/confidential-data';
 import { useNavigate } from 'react-router-dom';
 
 const createTag = async (tag: Tag) => {
-    const response = await fetch(`http://localhost:3000/create-tag`,{
+    const response = await fetch(`${URL}/tags`,{
         method: 'POST',
         body: JSON.stringify(tag),
         headers: {

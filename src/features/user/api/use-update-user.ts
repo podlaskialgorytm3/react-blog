@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../shared/hooks/useAuth';
 import Swal from 'sweetalert2';
 import { ResultData } from "../types/user-data";
+import { URL } from '../../../shared/config/confidential-data';
 
 const updateUser = async (userData: ResultData) => {
-    const response = await fetch('http://localhost:3000/update-user',{
+    const response = await fetch(`${URL}/users`,{
         method: 'PUT',
         mode: 'cors',
         body: JSON.stringify(userData),
