@@ -23,5 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 # Pliki projektowe
-src/shared/config/confidential-data.ts
+#src/shared/config/confidential-data.ts
 .env
