@@ -1,10 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import { TagDispatch } from "../types/tag-dispatch";
 import { queryClient } from "../../../api/query-client";
+import { URL } from "../../../shared/config/confidential-data";
 import Swal from "sweetalert2";
 
 const updateTag = async (tag: TagDispatch) => {
-    const response = await fetch(`http://localhost:3000/tags`, {
+    const response = await fetch(`${URL}/tags`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",

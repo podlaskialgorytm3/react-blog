@@ -1,12 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
 import { queryClient } from '../../../api/query-client';
 import { useNavigate } from 'react-router-dom';
+import { URL } from '../../../shared/config/confidential-data';
 import Swal from 'sweetalert2';
 
 import { PostContent } from "../../../shared/types/post-content"
 
 const createPost = async (postData: PostContent) => {
-    const response = await fetch('http://localhost:3000/posts', {
+    const response = await fetch(`${URL}/posts`, {
         method: 'POST',
         mode: 'cors',
         body: JSON.stringify(postData),

@@ -3,9 +3,10 @@ import { queryClient } from "../../../api/query-client";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { EditPostContent } from "../types/edit-post-content";
+import { URL } from "../../../shared/config/confidential-data";
 
 const updatePost = async (data: EditPostContent) => {
-    const response = await fetch(`http://localhost:3000/posts`,{
+    const response = await fetch(`${URL}/posts`,{
         method: 'PUT',
         mode: 'cors',
         body: JSON.stringify(data),

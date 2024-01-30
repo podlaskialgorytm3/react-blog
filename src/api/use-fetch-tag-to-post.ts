@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import { URL } from "../shared/config/confidential-data";
 
 const fetchTagToPost = async (postId: number) => {
-    const response = await fetch(`http://localhost:3000/post/tags/${postId}`);
+    const response = await fetch(`${URL}/post/tags/${postId}`);
 
     if (!response.ok) {
         throw new Error(response.statusText);

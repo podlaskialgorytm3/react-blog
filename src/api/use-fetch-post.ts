@@ -2,9 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchPostImage } from "./fetch-post-image";
 import { fetchUsername } from "./fetch-username";
 import { fetchUserImage } from "./fetch-user-image";
+import { URL } from "../shared/config/confidential-data";
 
 const fetchPost = async (post_id: number) => {
-    const response = await fetch(`http://localhost:3000/posts/${post_id}`);
+    const response = await fetch(`${URL}/posts/${post_id}`);
 
     if (!response.ok) {
         throw new Error(response.statusText);

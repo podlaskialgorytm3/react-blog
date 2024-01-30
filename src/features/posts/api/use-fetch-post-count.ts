@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
+import { URL } from '../../../shared/config/confidential-data';
 
 const fetchPostCount = async () => {
-    const respsone = await fetch(`http://localhost:3000/posts/count/all`);
+    const respsone = await fetch(`${URL}/posts/count/all`);
 
     if(!respsone.ok) {
         throw new Error(respsone.statusText);
