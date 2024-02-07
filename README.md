@@ -41,7 +41,7 @@ Technologies used in the project:
 
 <h3>🏠 Home Page</h3>
 
-<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/1.JPG?raw=true" alt="">
+<img width="1000px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/1.JPG?raw=true" alt="">
 
 <h3>👤 Create Account</h3>
 
