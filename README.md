@@ -1,30 +1,83 @@
-# React + TypeScript + Vite + Tailwind  
- 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h1 align="center" id="title">📝 React Micheal Blog </h1>
 
-Currently, two official plugins are available:
+<p id="description">A React-based blogging application allows users to create publish and browse articles offering dynamic and responsive interaction across various device.</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<h2>🚀 Demo</h2>
 
-## Expanding the ESLint configuration
+[https://react-blog-ls7a.vercel.app/](https://react-blog-ls7a.vercel.app/)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+  
+<h2>🧐 Features</h2>
 
-- Configure the top-level `parserOptions` property like this:
+Here're some of the project's best features:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+*   creating posts adding tags editing them and deleting them
+*   creating tags assigning them to posts and editing and deleting them
+*   pagination setting the number of visible posts on the page
+*   creating user accounts logging in and changing user settings (avatar and personal data settings)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+<h2>🏆 Motivation </h2>
+
+* improve my frontend skills
+* consolidation of knowledge in the field of React/Typescript
+* learning how to use react libraries such as tanstack query, react-router, tailwind, material-ui
+* the desire to create something creative and fun all in one
+
+<h2>💻 Built with</h2>
+
+Technologies used in the project:
+
+*   Typescript
+*   React
+*   React Router
+*   Tanstack Query
+*   Tailwind
+*   Material UI
+*   TinyMCE
+*   Vercel
+
+<h2>📸 Screenshots</h2>
+
+<h3>🏠 Home Page</h3>
+
+<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/1.JPG?raw=true" alt="">
+
+<h3>👤 Create Account</h3>
+
+<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/3.JPG?raw=true" alt="">
+
+<h3>🤵 Sign In</h3>
+
+<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/5.JPG?raw=true" alt="">
+
+<h3>📝 Create Post</h3>
+
+<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/9.JPG?raw=true" alt="">
+
+<h3>🔖 Create Tag</h3>
+
+<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/10.JPG?raw=true" alt="">
+
+<h3>🙋‍♂️ User Page</h3>
+
+<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/12.JPG?raw=true" alt="">
+
+<h3>⚙️ Profie Settings</h3>
+
+<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/13.JPG?raw=true" alt="">
+
+<h3>🔧 Post Settings</h3>
+
+<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/14.JPG?raw=true" alt="">
+
+<h3>📄 Post Page</h3>
+
+<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/11.JPG?raw=true" alt="">
+
+<h2>📞 Contanct</h2>
+
+<p> If you have any inquiries, ideas, or simply want to connect, feel free to get in touch with me:</p>
+<a href="mailto:live.m851@gmail.com">live.m851@gmail.com</a>
+</br>
+<a href="https://www.linkedin.com/in/micha%C5%82-kozak-134184232/"> Linkedin</a>
