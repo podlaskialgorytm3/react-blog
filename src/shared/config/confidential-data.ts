@@ -8,4 +8,5 @@ export const firebaseConfigData = {
 };
 export const ApiKeyTinyMMC = process.env.REACT_APP_API_TINY; 
 
+//export const URL = "http://localhost:3000"
 export const URL = process.env.REACT_APP_API_URL
