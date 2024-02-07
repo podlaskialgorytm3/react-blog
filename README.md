@@ -75,7 +75,7 @@ Technologies used in the project:
 
 <img width="1200px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/11.JPG?raw=true" alt="">
 
-<h2>📞 Contanct</h2>
+<h2>📞 Contact</h2>
 
 <p> If you have any inquiries, ideas, or simply want to connect, feel free to get in touch with me:</p>
 <a href="mailto:live.m851@gmail.com">live.m851@gmail.com</a>
