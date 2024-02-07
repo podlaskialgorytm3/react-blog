@@ -45,7 +45,7 @@ Technologies used in the project:
 
 <h3>👤 Create Account</h3>
 
-<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/3.JPG?raw=true" alt="">
+<img width="1200px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/3.JPG?raw=true" alt="">
 
 <h3>🤵 Sign In</h3>
 
@@ -53,27 +53,27 @@ Technologies used in the project:
 
 <h3>📝 Create Post</h3>
 
-<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/9.JPG?raw=true" alt="">
+<img width="1200px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/9.JPG?raw=true" alt="">
 
 <h3>🔖 Create Tag</h3>
 
-<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/10.JPG?raw=true" alt="">
+<img width="1200px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/10.JPG?raw=true" alt="">
 
 <h3>🙋‍♂️ User Page</h3>
 
-<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/12.JPG?raw=true" alt="">
+<img width="1200px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/12.JPG?raw=true" alt="">
 
 <h3>⚙️ Profie Settings</h3>
 
-<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/13.JPG?raw=true" alt="">
+<img width="1200px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/13.JPG?raw=true" alt="">
 
 <h3>🔧 Post Settings</h3>
 
-<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/14.JPG?raw=true" alt="">
+<img width="1200px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/14.JPG?raw=true" alt="">
 
 <h3>📄 Post Page</h3>
 
-<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/11.JPG?raw=true" alt="">
+<img width="1200px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/11.JPG?raw=true" alt="">
 
 <h2>📞 Contanct</h2>
 
