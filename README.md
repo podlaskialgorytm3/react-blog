@@ -49,7 +49,7 @@ Technologies used in the project:
 
 <h3>🤵 Sign In</h3>
 
-<img width="700px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/5.JPG?raw=true" alt="">
+<img width="1200px" src="https://github.com/podlaskialgorytm3/react-blog/blob/main/images/5.JPG?raw=true" alt="">
 
 <h3>📝 Create Post</h3>
 
